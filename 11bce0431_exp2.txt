@@ -1,0 +1,1322 @@
+SQL> alter table employee modify(fname varchar(15) CONSTRAINT con_fname NOT NULL;
+alter table employee modify(fname varchar(15) CONSTRAINT con_fname NOT NULL
+                                                                          *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> alter table employee modify(fname varchar(15) CONSTRAINT con_fname NOT NULL);
+
+Table altered.
+
+SQL> alter table employee modify(lname varchar(15) CONSTRAINT con_lname NOT NULL);
+
+Table altered.
+
+SQL> alter table employee add constraint con_pk char(9) PRIMARY KEY(SSN);
+alter table employee add constraint con_pk char(9) PRIMARY KEY(SSN)
+                                           *
+ERROR at line 1:
+ORA-00904: : invalid identifier 
+
+
+SQL> alter table employee add constraint con_pk char(9) PRIMARY KEY(SSN);
+alter table employee add constraint con_pk char(9) PRIMARY KEY(SSN)
+                                           *
+ERROR at line 1:
+ORA-00904: : invalid identifier 
+
+
+SQL> alter table employee add constraint con_pk varchar(9) PRIMARY KEY(SSN);
+alter table employee add constraint con_pk varchar(9) PRIMARY KEY(SSN)
+                                           *
+ERROR at line 1:
+ORA-00904: : invalid identifier 
+
+
+SQL> select *  from employee;
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+Joyce              PAN             543216789 07-FEB-80                          
+11 S59 E, Salt Lake City,UT                        F      70000                 
+         5                                                                      
+                                                                                
+Doug            E  Gilbert         554433221 09-JUN-75                          
+11 S 59 E ,Salt Lake City,UT                       M      80000                 
+         3                                                                      
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+                                                                                
+Frankin         T  Wong            333445555 08-DEC-85                          
+638 Voss Houston ,TX                               M      40000 554433221       
+         5                                                                      
+                                                                                
+Jennifer        S  Wallace         987654321 20-JUN-77                          
+291 Berry Bellaire ,TX                             F      43000 554433221       
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+         4                                                                      
+                                                                                
+John            B  Smith           123456789 09-JAN-67                          
+731 Fondren Houston,TX                             M      30000 333445555       
+         5                                                                      
+                                                                                
+Ramesh          K  Narayan         666884444 15-SEP-76                          
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+975 Fire Oak Humble,TX                             M      38000 333445555       
+         5                                                                      
+                                                                                
+Joyce           A  English         453453453 31-JUL-73                          
+5631 Rice Houston, TX                              F      25000 333445555       
+         5                                                                      
+                                                                                
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+James           E  Borg            888665555 10-NOV-81                          
+450 Stone Houston,TX                               M      55000 543216789       
+         1                                                                      
+                                                                                
+Alicia          J  Zelaya          999887777 19-JUL-72                          
+3321 Castle Spring,TX                              F      25000 987654321       
+         4                                                                      
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+                                                                                
+Ahmad           V  Jabbar          987987987 29-MAR-74                          
+980 Dallas Houston,TX                              M      25000 987654321       
+         4                                                                      
+                                                                                
+
+10 rows selected.
+
+SQL> alter table employee add constraint con_pk PRIMARY KEY(SSN);
+
+Table altered.
+
+SQL> alter table employee add constraint con_sex Check(SEX in('M','F','m','f'));
+
+Table altered.
+
+SQL> alter table employee modify( salary number(7) Constraint con_salary Default=800);
+alter table employee modify( salary number(7) Constraint con_salary Default=800)
+                                              *
+ERROR at line 1:
+ORA-02253: constraint specification not allowed here 
+
+
+SQL> alter table employee modify( salary number(7) Constraint con_salary Default 800);
+alter table employee modify( salary number(7) Constraint con_salary Default 800)
+                                              *
+ERROR at line 1:
+ORA-02253: constraint specification not allowed here 
+
+
+SQL> alter table employee modify salary number(7) con_salary DEFAULT(800);
+alter table employee modify salary number(7) con_salary DEFAULT(800)
+                                             *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> alter table employee modify salary number(7) con_salary DEFAULT(800);
+alter table employee modify salary number(7) con_salary DEFAULT(800)
+                                             *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> alter table employee modify salary number(7)  DEFAULT(800);
+
+Table altered.
+
+SQL> alter table employee add constraint con_fk Foreign Key(SSN) on delete Set NULL;
+alter table employee add constraint con_fk Foreign Key(SSN) on delete Set NULL
+                                                            *
+ERROR at line 1:
+ORA-00905: missing keyword 
+
+
+SQL> alter table employee add constraint con_fk Foreign Key(SSN) on delete Set NULL;
+alter table employee add constraint con_fk Foreign Key(SSN) on delete Set NULL
+                                                            *
+ERROR at line 1:
+ORA-00905: missing keyword 
+
+
+SQL> commit;
+
+Commit complete.
+
+SQL> spool off;
+
+SQL> desc project;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PNAME                                              VARCHAR2(15)
+ PNO                                                NUMBER(5)
+ PLOCATION                                          VARCHAR2(15)
+ DEPNO                                              NUMBER(5)
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ FNAME                                     NOT NULL VARCHAR2(15)
+ MINIT                                              CHAR(2)
+ LNAME                                     NOT NULL VARCHAR2(15)
+ SSN                                       NOT NULL CHAR(9)
+ BDATE                                              DATE
+ ADDRESS                                            VARCHAR2(50)
+ SEX                                                CHAR(1)
+ SALARY                                             NUMBER(7)
+ SUPERSSN                                           CHAR(9)
+ DEPNO                                              NUMBER(5)
+
+SQL> desc project;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PNAME                                              VARCHAR2(15)
+ PNO                                                NUMBER(5)
+ PLOCATION                                          VARCHAR2(15)
+ DEPNO                                              NUMBER(5)
+
+SQL> alter table employee add constraint con_pk1 PRIMARY KEY(SSN);
+alter table employee add constraint con_pk1 PRIMARY KEY(SSN)
+                                            *
+ERROR at line 1:
+ORA-02260: table can have only one primary key 
+
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ FNAME                                     NOT NULL VARCHAR2(15)
+ MINIT                                              CHAR(2)
+ LNAME                                     NOT NULL VARCHAR2(15)
+ SSN                                       NOT NULL CHAR(9)
+ BDATE                                              DATE
+ ADDRESS                                            VARCHAR2(50)
+ SEX                                                CHAR(1)
+ SALARY                                             NUMBER(7)
+ SUPERSSN                                           CHAR(9)
+ DEPNO                                              NUMBER(5)
+
+SQL> select constraint_name,constraint_type from user_constraints where table_name='EMPLOYEE';
+
+CONSTRAINT_NAME                C                                                
+------------------------------ -                                                
+CON_FNAME                      C                                                
+CON_LNAME                      C                                                
+CON_PK                         P                                                
+CON_SEX                        C                                                
+
+SQL>  alter table department add constraint con_fk FORIEIGN KEY(SSN);
+ alter table department add constraint con_fk FORIEIGN KEY(SSN)
+                                                           *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> desc department;
+ERROR:
+ORA-04043: object department does not exist 
+
+
+SQL> desc dept;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DNAME                                              VARCHAR2(15)
+ DNO                                                NUMBER(5)
+ MGRSSN                                             CHAR(9)
+ MGRSTART_DATE                                      DATE
+
+SQL> rename table dept to department;
+rename table dept to department
+       *
+ERROR at line 1:
+ORA-00903: invalid table name 
+
+
+SQL> rename dept to department;
+
+Table renamed.
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+PROJECT                        TABLE                                            
+EMPLOYEE                       TABLE                                            
+DEPARTMENT                     TABLE                                            
+BIN$x4K3DdR5QO+Pv/ZiT1qZNg==$0 TABLE                                            
+BIN$h93CdPfMQMqWLc64ZxVhag==$0 TABLE                                            
+BIN$29zE/PxvSRaIrVAibS6djA==$0 TABLE                                            
+
+6 rows selected.
+
+SQL>  alter table department add constraint con_fk FORIEIGN KEY(SSN) REFERENCES;
+ alter table department add constraint con_fk FORIEIGN KEY(SSN) REFERENCES
+                                                           *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL>  alter table employee add constraint con_fk FORIEIGN KEY(SUPERSSN) REFERENCES EMPLOYEE(SSN);
+ alter table employee add constraint con_fk FORIEIGN KEY(SUPERSSN) REFERENCES EMPLOYEE(SSN)
+                                                         *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL>  alter table employee add constraint con_fk FORIEIGN KEY(SUPERSSN) REFERENCES EMPLOYEE(SSN) ON DELETE SET NULL;
+ alter table employee add constraint con_fk FORIEIGN KEY(SUPERSSN) REFERENCES EMPLOYEE(SSN) ON DELETE SET NULL
+                                                         *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL>  alter employee add constraint con_fk FORIEIGN KEY(SUPERSSN) REFERENCES EMPLOYEE(SSN) ON DELETE SET NULL;
+ alter employee add constraint con_fk FORIEIGN KEY(SUPERSSN) REFERENCES EMPLOYEE(SSN) ON DELETE SET NULL
+       *
+ERROR at line 1:
+ORA-00940: invalid ALTER command 
+
+
+SQL>  alter table employee add constraint con_fk FORIEIGN KEY(SUPERSSN) REFERENCES EMPLOYEE(SUPERSSN) ON DELETE SET NULL;
+ alter table employee add constraint con_fk FORIEIGN KEY(SUPERSSN) REFERENCES EMPLOYEE(SUPERSSN) ON DELETE SET NULL
+                                                         *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL>  alter table employee add constraint con_fk FORIEIGN KEY(SUPERSSN) REFERENCES EMPLOYEE(SSN) ON DELETE SET NULL;
+ alter table employee add constraint con_fk FORIEIGN KEY(SUPERSSN) REFERENCES EMPLOYEE(SSN) ON DELETE SET NULL
+                                                         *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL>  alter table employee add constraint con_fk FORIEIGN KEY(SUPERSSN) REFERENCES EMPLOYEE(SSN);
+ alter table employee add constraint con_fk FORIEIGN KEY(SUPERSSN) REFERENCES EMPLOYEE(SSN)
+                                                         *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> desc department;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DNAME                                              VARCHAR2(15)
+ DNO                                                NUMBER(5)
+ MGRSSN                                             CHAR(9)
+ MGRSTART_DATE                                      DATE
+
+SQL>  alter table employee add constraint con_fk FORIEIGN KEY(SUPERSSN) REFERENCES EMPLOYEE(SSN);
+ alter table employee add constraint con_fk FORIEIGN KEY(SUPERSSN) REFERENCES EMPLOYEE(SSN)
+                                                         *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL>  alter table employee add constraint con_fk FOREIGN KEY(SUPERSSN) REFERENCES EMPLOYEE(SSN);
+
+Table altered.
+
+SQL> desc department;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DNAME                                              VARCHAR2(15)
+ DNO                                                NUMBER(5)
+ MGRSSN                                             CHAR(9)
+ MGRSTART_DATE                                      DATE
+
+SQL> alter table department add constraint con_fk1 FOREIGN KEY()
+  2  
+SQL> alter table department add constraint con_fk1 FOREIGN KEY(DNO) REFERENCES EMPLOYEE(DEPNO) ON DELETE CASCADE;
+alter table department add constraint con_fk1 FOREIGN KEY(DNO) REFERENCES EMPLOYEE(DEPNO) ON DELETE CASCADE
+                                                                                   *
+ERROR at line 1:
+ORA-02270: no matching unique or primary key for this column-list 
+
+
+SQL> alter table department add constraint con_pk1 PRIMARY KEY(DNO);
+
+Table altered.
+
+SQL> alter table employee add constraint con_fk1 FOREIGN KEY(DepNO) REFERENCES department(dno) ON DELETE CASCADE;
+
+Table altered.
+
+SQL> select constraint_name,constraint_type from user_constraints where table_name='EMPLOYEE';
+
+CONSTRAINT_NAME                C                                                
+------------------------------ -                                                
+CON_FNAME                      C                                                
+CON_LNAME                      C                                                
+CON_FK                         R                                                
+CON_PK                         P                                                
+CON_SEX                        C                                                
+CON_FK1                        R                                                
+
+6 rows selected.
+
+SQL> desc department;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DNAME                                              VARCHAR2(15)
+ DNO                                       NOT NULL NUMBER(5)
+ MGRSSN                                             CHAR(9)
+ MGRSTART_DATE                                      DATE
+
+SQL>  alter table department modify dname varchar2(15) NOT NULL;
+
+Table altered.
+
+SQL> alter table department add constraint con_fk2 FOREIGN KEY(MGRSSN) REFERENCES employee(SSN) ON DELETE SET NULL;
+
+Table altered.
+
+SQL> create table dept_locations(depno number(5) ON DELETE CASCADE);
+create table dept_locations(depno number(5) ON DELETE CASCADE)
+                                            *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create table dept_locations(depno number(5) ON DELETE CASCADE);
+create table dept_locations(depno number(5) ON DELETE CASCADE)
+                                            *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create table dept_locations(depno number(5) ON DELETE CASCADE);
+create table dept_locations(depno number(5) ON DELETE CASCADE)
+                                            *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create table dept_locations(depno number(5), dlocation varchar(15),CONSTRAINT con_fk2 FOREIGN KEY(depno) REFERENCES department(dno) ON DELETE CASCADE;
+create table dept_locations(depno number(5), dlocation varchar(15),CONSTRAINT con_fk2 FOREIGN KEY(depno) REFERENCES department(dno) ON DELETE CASCADE
+                                                                                                                                                    *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create table dept_locations(depno number(5), dlocation varchar(15),CONSTRAINT con_fk2 FOREIGN KEY(depno) REFERENCES department(dno) ON DELETE CASCADE);
+create table dept_locations(depno number(5), dlocation varchar(15),CONSTRAINT con_fk2 FOREIGN KEY(depno) REFERENCES department(dno) ON DELETE CASCADE)
+                                                                              *
+ERROR at line 1:
+ORA-02264: name already used by an existing constraint 
+
+
+SQL> create table dept_locations(depno number(5), dlocation varchar(15),CONSTRAINT con_fk FOREIGN KEY(depno) REFERENCES department(dno) ON DELETE CASCADE);
+create table dept_locations(depno number(5), dlocation varchar(15),CONSTRAINT con_fk FOREIGN KEY(depno) REFERENCES department(dno) ON DELETE CASCADE)
+                                                                              *
+ERROR at line 1:
+ORA-02264: name already used by an existing constraint 
+
+
+SQL> 
+SQL> create table dept_locations(depno number(5), dlocation varchar(15),CONSTRAINT con_fk5 FOREIGN KEY(depno) REFERENCES department(dno) ON DELETE CASCADE);
+
+Table created.
+
+SQL> desc project;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PNAME                                              VARCHAR2(15)
+ PNO                                                NUMBER(5)
+ PLOCATION                                          VARCHAR2(15)
+ DEPNO                                              NUMBER(5)
+
+SQL> alter table project modify pname varchar2(15) NOT NULL;
+
+Table altered.
+
+SQL> alter table project add constraint con_pkp PRIMARY KEY(PNO);
+
+Table altered.
+
+SQL> alter table project add constraint con_fkp FOREIGN KEY(depno) REFERENCES (Dno) ON DELETE SET NULL;
+alter table project add constraint con_fkp FOREIGN KEY(depno) REFERENCES (Dno) ON DELETE SET NULL
+                                                                         *
+ERROR at line 1:
+ORA-00903: invalid table name 
+
+
+SQL> desc project;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PNAME                                     NOT NULL VARCHAR2(15)
+ PNO                                       NOT NULL NUMBER(5)
+ PLOCATION                                          VARCHAR2(15)
+ DEPNO                                              NUMBER(5)
+
+SQL> select constraint_name,constraint_type from user_constraints where table_name='EMPLOYEE';
+
+CONSTRAINT_NAME                C                                                
+------------------------------ -                                                
+CON_FNAME                      C                                                
+CON_LNAME                      C                                                
+CON_FK                         R                                                
+CON_PK                         P                                                
+CON_SEX                        C                                                
+CON_FK1                        R                                                
+
+6 rows selected.
+
+SQL> select constraint_name,constraint_type from user_constraints where table_name='PROJECT';
+
+CONSTRAINT_NAME                C                                                
+------------------------------ -                                                
+SYS_C00106829                  C                                                
+CON_PKP                        P                                                
+
+SQL> alter table project add constraint con_fkp FOREIGN KEY(depno) REFERENCES (Dno) ON DELETE SET NULL;
+alter table project add constraint con_fkp FOREIGN KEY(depno) REFERENCES (Dno) ON DELETE SET NULL
+                                                                         *
+ERROR at line 1:
+ORA-00903: invalid table name 
+
+
+SQL> alter table PROJECT add constraint con_fkp FOREIGN KEY(depno) REFERENCES (Dno) ON DELETE SET NULL;
+alter table PROJECT add constraint con_fkp FOREIGN KEY(depno) REFERENCES (Dno) ON DELETE SET NULL
+                                                                         *
+ERROR at line 1:
+ORA-00903: invalid table name 
+
+
+SQL> alter table PROJECT add constraint con_fkp FOREIGN KEY(depno) REFERENCES department(Dno) ON DELETE SET NULL;
+
+Table altered.
+
+SQL> create table works_on(EmployeeSSN char(9),Pno int(5), hours decimal(3,1));
+create table works_on(EmployeeSSN char(9),Pno int(5), hours decimal(3,1))
+                                                 *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create table works_on(EmployeeSSN char(9),Pno int(5),hours decimal(3,1));
+create table works_on(EmployeeSSN char(9),Pno int(5),hours decimal(3,1))
+                                                 *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> commit;
+
+Commit complete.
+
+SQL> spool off;
+
+SQL> select constraint_name,constraint_type from user_constraints wheretable_name='DEPT_LOCATIONS';
+select constraint_name,constraint_type from user_constraints wheretable_name='DEPT_LOCATIONS'
+                                                                            *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select constraint_name,constraint_type from user_constraints where table_name='DEPT_LOCATIONS';
+
+CONSTRAINT_NAME                C                                                
+------------------------------ -                                                
+CON_FK5                        R                                                
+
+SQL> select constraint_name,constraint_type from user_constraints where table_name='PROJECT';
+
+CONSTRAINT_NAME                C                                                
+------------------------------ -                                                
+SYS_C00106829                  C                                                
+CON_PKP                        P                                                
+CON_FKP                        R                                                
+
+SQL> CREATE TABLE works_on(emp_ssn char(9), pjno number(5), hours decimal(3,1), constraints con_pk4 primary key(emp_ssn,pjno),constraints con_fk6 foreign key(emp_ssn) references emp(ssn) on delete cascade, constraints con_fk7 foreign key(pjno) references project(pjno) on delete cascade);
+CREATE TABLE works_on(emp_ssn char(9), pjno number(5), hours decimal(3,1), constraints con_pk4 primary key(emp_ssn,pjno),constraints con_fk6 foreign key(emp_ssn) references emp(ssn) on delete cascade, constraints con_fk7 foreign key(pjno) references project(pjno) on delete cascade)
+                                                                                                                                                                             *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> create table works_on(emp_ssn char(9), pjno number(5), hours decimal(3,1), constraints con_pk4 primary key(emp_ssn,pjno),constraints con_fk6 foreign key(emp_ssn) references emp(ssn) on delete cascade, constraints con_fk7 foreign key(pjno) references project(pjno) on delete cascade);
+create table works_on(emp_ssn char(9), pjno number(5), hours decimal(3,1), constraints con_pk4 primary key(emp_ssn,pjno),constraints con_fk6 foreign key(emp_ssn) references emp(ssn) on delete cascade, constraints con_fk7 foreign key(pjno) references project(pjno) on delete cascade)
+                                                                                                                                                                             *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+PROJECT                        TABLE                                            
+EMPLOYEE                       TABLE                                            
+DEPT_LOCATIONS                 TABLE                                            
+DEPARTMENT                     TABLE                                            
+BIN$x4K3DdR5QO+Pv/ZiT1qZNg==$0 TABLE                                            
+BIN$h93CdPfMQMqWLc64ZxVhag==$0 TABLE                                            
+BIN$29zE/PxvSRaIrVAibS6djA==$0 TABLE                                            
+
+7 rows selected.
+
+SQL> select * from employee;
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+Joyce              PAN             543216789 07-FEB-80                          
+11 S59 E, Salt Lake City,UT                        F      70000                 
+         5                                                                      
+                                                                                
+Doug            E  Gilbert         554433221 09-JUN-75                          
+11 S 59 E ,Salt Lake City,UT                       M      80000                 
+         3                                                                      
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+                                                                                
+Frankin         T  Wong            333445555 08-DEC-85                          
+638 Voss Houston ,TX                               M      40000 554433221       
+         5                                                                      
+                                                                                
+Jennifer        S  Wallace         987654321 20-JUN-77                          
+291 Berry Bellaire ,TX                             F      43000 554433221       
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+         4                                                                      
+                                                                                
+John            B  Smith           123456789 09-JAN-67                          
+731 Fondren Houston,TX                             M      30000 333445555       
+         5                                                                      
+                                                                                
+Ramesh          K  Narayan         666884444 15-SEP-76                          
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+975 Fire Oak Humble,TX                             M      38000 333445555       
+         5                                                                      
+                                                                                
+Joyce           A  English         453453453 31-JUL-73                          
+5631 Rice Houston, TX                              F      25000 333445555       
+         5                                                                      
+                                                                                
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+James           E  Borg            888665555 10-NOV-81                          
+450 Stone Houston,TX                               M      55000 543216789       
+         1                                                                      
+                                                                                
+Alicia          J  Zelaya          999887777 19-JUL-72                          
+3321 Castle Spring,TX                              F      25000 987654321       
+         4                                                                      
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+                                                                                
+Ahmad           V  Jabbar          987987987 29-MAR-74                          
+980 Dallas Houston,TX                              M      25000 987654321       
+         4                                                                      
+                                                                                
+
+10 rows selected.
+
+SQL> select * from project;
+
+PNAME                  PNO PLOCATION            DEPNO                           
+--------------- ---------- --------------- ----------                           
+ProjectA              3388 Houston                  1                           
+ProjectB              1945 Salt Lake City           3                           
+ProjectC              6688 Houston                  5                           
+ProjectD              2423 Bellaire                 4                           
+ProjectE              7745 Sugarland                5                           
+ProjectF              1566 Salt Lake City           3                           
+ProjectG              1234 New York                 2                           
+ProjectH              3467 Stafford                 4                           
+ProjectI              4345 Chicago                  1                           
+ProjectJ              2212 San Francisco            2                           
+
+10 rows selected.
+
+SQL> create table works_on(emp_ssn char(9), pjno number(5), hours decimal(3,1), constraints con_pk4 primary key(emp_ssn,pjno),constraints con_fk6 foreign key(emp_ssn) references employee(ssn) on delete cascade, constraints con_fk7 foreign key(pjno) references project(pno) on delete cascade);
+
+Table created.
+
+SQL> create table dependen(emp_ssn char(9),dname varchar(10),sex char(1),dob date, relationship varchar(8), constraints con_fk8 foreign key(emp_ssn references employee(ssn) on delete cascade,constraints con_ck1 check(sex IN('m','f','M','F')));\
+  2  
+SQL> create table dependen(emp_ssn char(9),dname varchar(10),sex char(1),dob date, relationship varchar(8), constraints con_fk8 foreign key(emp_ssn references employee(ssn) on delete cascade,constraints con_ck1 check(sex IN('m','f','M','F')));
+create table dependen(emp_ssn char(9),dname varchar(10),sex char(1),dob date, relationship varchar(8), constraints con_fk8 foreign key(emp_ssn references employee(ssn) on delete cascade,constraints con_ck1 check(sex IN('m','f','M','F')))
+                                                                                                                                               *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create table dependen(emp_ssn char(9),dname varchar(10),sex char(1),dob date, relationship varchar(8), constraints con_fk8 foreign key(emp_ssn) references employee(ssn) on delete cascade,constraints con_ck1 check(sex IN('m','f','M','F')));
+
+Table created.
+
+SQL> rename dependen to Dependent;
+
+Table renamed.
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+WORKS_ON                       TABLE                                            
+PROJECT                        TABLE                                            
+EMPLOYEE                       TABLE                                            
+DEPT_LOCATIONS                 TABLE                                            
+DEPENDENT                      TABLE                                            
+DEPARTMENT                     TABLE                                            
+BIN$x4K3DdR5QO+Pv/ZiT1qZNg==$0 TABLE                                            
+BIN$h93CdPfMQMqWLc64ZxVhag==$0 TABLE                                            
+BIN$29zE/PxvSRaIrVAibS6djA==$0 TABLE                                            
+
+9 rows selected.
+
+SQL> desc dept_locations
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPNO                                              NUMBER(5)
+ DLOCATION                                          VARCHAR2(15)
+
+SQL> insert into dept_locations('&depno','&dlocation');
+Enter value for depno: 1
+Enter value for dlocation: Houston
+old   1: insert into dept_locations('&depno','&dlocation')
+new   1: insert into dept_locations('1','Houston')
+insert into dept_locations('1','Houston')
+                           *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword 
+
+
+SQL> insert into dept_locations(&depno,'&dlocation');
+Enter value for depno: 1
+Enter value for dlocation: Houston
+old   1: insert into dept_locations(&depno,'&dlocation')
+new   1: insert into dept_locations(1,'Houston')
+insert into dept_locations(1,'Houston')
+                           *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword 
+
+
+SQL> insert into dept_locations(&depno,'&dlocation');
+Enter value for depno: 1
+Enter value for dlocation: houston
+old   1: insert into dept_locations(&depno,'&dlocation')
+new   1: insert into dept_locations(1,'houston')
+insert into dept_locations(1,'houston')
+                           *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword 
+
+
+SQL> insert into dept_locations values(&depno,'&dlocation');
+Enter value for depno: 1
+Enter value for dlocation: houston
+old   1: insert into dept_locations values(&depno,'&dlocation')
+new   1: insert into dept_locations values(1,'houston')
+
+1 row created.
+
+SQL> /
+Enter value for depno: 1
+Enter value for dlocation: Chicago
+old   1: insert into dept_locations values(&depno,'&dlocation')
+new   1: insert into dept_locations values(1,'Chicago')
+
+1 row created.
+
+SQL> /
+Enter value for depno: 2 
+Enter value for dlocation: New York
+old   1: insert into dept_locations values(&depno,'&dlocation')
+new   1: insert into dept_locations values(2 ,'New York')
+
+1 row created.
+
+SQL> /
+Enter value for depno: 2
+Enter value for dlocation: San Francisco
+old   1: insert into dept_locations values(&depno,'&dlocation')
+new   1: insert into dept_locations values(2,'San Francisco')
+
+1 row created.
+
+SQL> /
+Enter value for depno: 3
+Enter value for dlocation: Salt Lake City
+old   1: insert into dept_locations values(&depno,'&dlocation')
+new   1: insert into dept_locations values(3,'Salt Lake City')
+
+1 row created.
+
+SQL> /
+Enter value for depno: 4
+Enter value for dlocation: Stafford
+old   1: insert into dept_locations values(&depno,'&dlocation')
+new   1: insert into dept_locations values(4,'Stafford')
+
+1 row created.
+
+SQL> /4
+Enter value for depno: 4
+Enter value for dlocation: Bellaire
+old   1: insert into dept_locations values(&depno,'&dlocation')
+new   1: insert into dept_locations values(4,'Bellaire')
+
+1 row created.
+
+SQL> /
+Enter value for depno: 5
+Enter value for dlocation: Sugarland
+old   1: insert into dept_locations values(&depno,'&dlocation')
+new   1: insert into dept_locations values(5,'Sugarland')
+
+1 row created.
+
+SQL> /
+Enter value for depno: 5
+Enter value for dlocation: Houston
+old   1: insert into dept_locations values(&depno,'&dlocation')
+new   1: insert into dept_locations values(5,'Houston')
+
+1 row created.
+
+SQL> select * from dept_locations;
+
+     DEPNO DLOCATION                                                            
+---------- ---------------                                                      
+         1 houston                                                              
+         1 Chicago                                                              
+         2 New York                                                             
+         2 San Francisco                                                        
+         3 Salt Lake City                                                       
+         4 Stafford                                                             
+         4 Bellaire                                                             
+         5 Sugarland                                                            
+         5 Houston                                                              
+
+9 rows selected.
+
+SQL> desc dependent;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_SSN                                            CHAR(9)
+ DNAME                                              VARCHAR2(10)
+ SEX                                                CHAR(1)
+ DOB                                                DATE
+ RELATIONSHIP                                       VARCHAR2(8)
+
+SQL> insert into dependent values('&EMP_SSN','&Dname','&sex','&dob','&relationship');
+Enter value for emp_ssn: 333445555
+Enter value for dname: alice
+Enter value for sex: f
+Enter value for dob: 05-apr-76
+Enter value for relationship: daughter
+old   1: insert into dependent values('&EMP_SSN','&Dname','&sex','&dob','&relationship')
+new   1: insert into dependent values('333445555','alice','f','05-apr-76','daughter')
+
+1 row created.
+
+SQL> /
+Enter value for emp_ssn: 333445555
+Enter value for dname: theodore
+Enter value for sex: m
+Enter value for dob: 25-oct-73
+Enter value for relationship: son
+old   1: insert into dependent values('&EMP_SSN','&Dname','&sex','&dob','&relationship')
+new   1: insert into dependent values('333445555','theodore','m','25-oct-73','son')
+
+1 row created.
+
+SQL> /
+Enter value for emp_ssn: 333445555
+Enter value for dname: joy
+Enter value for sex: f
+Enter value for dob: 03-may-48
+Enter value for relationship: spouse
+old   1: insert into dependent values('&EMP_SSN','&Dname','&sex','&dob','&relationship')
+new   1: insert into dependent values('333445555','joy','f','03-may-48','spouse')
+
+1 row created.
+
+SQL> /
+Enter value for emp_ssn: 9876543421
+Enter value for dname: abner
+Enter value for sex: m
+Enter value for dob: 29-feb-32
+Enter value for relationship: spouse
+old   1: insert into dependent values('&EMP_SSN','&Dname','&sex','&dob','&relationship')
+new   1: insert into dependent values('9876543421','abner','m','29-feb-32','spouse')
+insert into dependent values('9876543421','abner','m','29-feb-32','spouse')
+                             *
+ERROR at line 1:
+ORA-12899: value too large for column "11BCE0431"."DEPENDENT"."EMP_SSN" 
+(actual: 10, maximum: 9) 
+
+
+SQL> /
+Enter value for emp_ssn: 9876543421
+Enter value for dname: abner
+Enter value for sex: m
+Enter value for dob: 29-feb-32
+Enter value for relationship: spouse
+old   1: insert into dependent values('&EMP_SSN','&Dname','&sex','&dob','&relationship')
+new   1: insert into dependent values('9876543421','abner','m','29-feb-32','spouse')
+insert into dependent values('9876543421','abner','m','29-feb-32','spouse')
+                             *
+ERROR at line 1:
+ORA-12899: value too large for column "11BCE0431"."DEPENDENT"."EMP_SSN" 
+(actual: 10, maximum: 9) 
+
+
+SQL> /
+Enter value for emp_ssn: 987654321
+Enter value for dname: abner
+Enter value for sex: m
+Enter value for dob: 29-feb-32
+Enter value for relationship: spouse
+old   1: insert into dependent values('&EMP_SSN','&Dname','&sex','&dob','&relationship')
+new   1: insert into dependent values('987654321','abner','m','29-feb-32','spouse')
+
+1 row created.
+
+SQL> /
+Enter value for emp_ssn: 123456789
+Enter value for dname: alice
+Enter value for sex: f
+Enter value for dob: 31-dec-78
+Enter value for relationship: daughter
+old   1: insert into dependent values('&EMP_SSN','&Dname','&sex','&dob','&relationship')
+new   1: insert into dependent values('123456789','alice','f','31-dec-78','daughter')
+
+1 row created.
+
+SQL> /
+Enter value for emp_ssn: 123456789
+Enter value for dname: elizabeth
+Enter value for sex: f
+Enter value for dob: 05-may-57
+Enter value for relationship: spouse
+old   1: insert into dependent values('&EMP_SSN','&Dname','&sex','&dob','&relationship')
+new   1: insert into dependent values('123456789','elizabeth','f','05-may-57','spouse')
+
+1 row created.
+
+SQL> desc works_on;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_SSN                                   NOT NULL CHAR(9)
+ PJNO                                      NOT NULL NUMBER(5)
+ HOURS                                              NUMBER(3,1)
+
+SQL> insert into works_on values('&emp_ssn',&pjno,&hours);
+Enter value for emp_ssn: 123456789
+Enter value for pjno: 3388
+Enter value for hours: 32.5
+old   1: insert into works_on values('&emp_ssn',&pjno,&hours)
+new   1: insert into works_on values('123456789',3388,32.5)
+
+1 row created.
+
+SQL> /
+Enter value for emp_ssn: 123456789
+Enter value for pjno: 1945
+Enter value for hours: 7.5
+old   1: insert into works_on values('&emp_ssn',&pjno,&hours)
+new   1: insert into works_on values('123456789',1945,7.5)
+
+1 row created.
+
+SQL> /
+Enter value for emp_ssn: 666884444
+Enter value for pjno: 3388
+Enter value for hours: 40.0
+old   1: insert into works_on values('&emp_ssn',&pjno,&hours)
+new   1: insert into works_on values('666884444',3388,40.0)
+
+1 row created.
+
+SQL> /
+Enter value for emp_ssn: 453453453
+Enter value for pjno: 7745
+Enter value for hours: 20.0
+old   1: insert into works_on values('&emp_ssn',&pjno,&hours)
+new   1: insert into works_on values('453453453',7745,20.0)
+
+1 row created.
+
+SQL> /
+Enter value for emp_ssn: 453453453
+Enter value for pjno: 2212
+Enter value for hours: 20.0
+old   1: insert into works_on values('&emp_ssn',&pjno,&hours)
+new   1: insert into works_on values('453453453',2212,20.0)
+
+1 row created.
+
+SQL> /
+Enter value for emp_ssn: 333445555
+Enter value for pjno: 7745
+Enter value for hours: 10.0
+old   1: insert into works_on values('&emp_ssn',&pjno,&hours)
+new   1: insert into works_on values('333445555',7745,10.0)
+
+1 row created.
+
+SQL> /
+Enter value for emp_ssn: 333445555
+Enter value for pjno: 6688
+Enter value for hours: 10.0
+old   1: insert into works_on values('&emp_ssn',&pjno,&hours)
+new   1: insert into works_on values('333445555',6688,10.0)
+
+1 row created.
+
+SQL> /
+Enter value for emp_ssn: 333445555
+Enter value for pjno: 4345
+Enter value for hours: 35.0
+old   1: insert into works_on values('&emp_ssn',&pjno,&hours)
+new   1: insert into works_on values('333445555',4345,35.0)
+
+1 row created.
+
+SQL> /
+Enter value for emp_ssn: 333445555
+Enter value for pjno: 2212
+Enter value for hours: 28.5
+old   1: insert into works_on values('&emp_ssn',&pjno,&hours)
+new   1: insert into works_on values('333445555',2212,28.5)
+
+1 row created.
+
+SQL> /
+Enter value for emp_ssn: 999887777
+Enter value for pjno: 2212
+Enter value for hours: 11.5
+old   1: insert into works_on values('&emp_ssn',&pjno,&hours)
+new   1: insert into works_on values('999887777',2212,11.5)
+
+1 row created.
+
+SQL> /
+Enter value for emp_ssn: 543216789
+Enter value for pjno: 2212
+Enter value for hours: 17.0
+old   1: insert into works_on values('&emp_ssn',&pjno,&hours)
+new   1: insert into works_on values('543216789',2212,17.0)
+
+1 row created.
+
+SQL> /
+Enter value for emp_ssn: 554433221
+Enter value for pjno: 1945
+Enter value for hours: 21.5
+old   1: insert into works_on values('&emp_ssn',&pjno,&hours)
+new   1: insert into works_on values('554433221',1945,21.5)
+
+1 row created.
+
+SQL> select * from works_on;
+
+EMP_SSN         PJNO      HOURS                                                 
+--------- ---------- ----------                                                 
+123456789       3388       32.5                                                 
+123456789       1945        7.5                                                 
+666884444       3388         40                                                 
+453453453       7745         20                                                 
+453453453       2212         20                                                 
+333445555       7745         10                                                 
+333445555       6688         10                                                 
+333445555       4345         35                                                 
+333445555       2212       28.5                                                 
+999887777       2212       11.5                                                 
+543216789       2212         17                                                 
+
+EMP_SSN         PJNO      HOURS                                                 
+--------- ---------- ----------                                                 
+554433221       1945       21.5                                                 
+
+12 rows selected.
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ FNAME                                     NOT NULL VARCHAR2(15)
+ MINIT                                              CHAR(2)
+ LNAME                                     NOT NULL VARCHAR2(15)
+ SSN                                       NOT NULL CHAR(9)
+ BDATE                                              DATE
+ ADDRESS                                            VARCHAR2(50)
+ SEX                                                CHAR(1)
+ SALARY                                             NUMBER(7)
+ SUPERSSN                                           CHAR(9)
+ DEPNO                                              NUMBER(5)
+
+SQL> insert into employee values('Robert','F','Scott','943775543','21-JUN-1975','2365 Newcastle rd ,Bellaire, TX',M,58000,'888665555',1);
+insert into employee values('Robert','F','Scott','943775543','21-JUN-1975','2365 Newcastle rd ,Bellaire, TX',M,58000,'888665555',1)
+                                                                                                             *
+ERROR at line 1:
+ORA-00984: column not allowed here 
+
+
+SQL> insert into works_on('677678989',null,'40.0');
+insert into works_on('677678989',null,'40.0')
+                     *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword 
+
+
+SQL> insert into works_on values ('677678989',null,'40.0');
+insert into works_on values ('677678989',null,'40.0')
+                                         *
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("11BCE0431"."WORKS_ON"."PJNO") 
+
+
+SQL> insert into works_on values ('677678989',,'40.0');
+insert into works_on values ('677678989',,'40.0')
+                                         *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> insert into works_on values ('677678989','','40.0');
+insert into works_on values ('677678989','','40.0')
+                                         *
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("11BCE0431"."WORKS_ON"."PJNO") 
+
+
+SQL> insert into employee values('Robert','F','Scott','943775543','21-JUN-1975','2365 Newcastle rd ,Bellaire, TX','M',58000,'888665555',1);
+
+1 row created.
+
+SQL> insert into dependent values('453453453','john','m','12-dec-1983','Spouse');
+
+1 row created.
+
+SQL> delete from works_on where emp_ssn='333445555';
+
+4 rows deleted.
+
+SQL> desc department;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DNAME                                     NOT NULL VARCHAR2(15)
+ DNO                                       NOT NULL NUMBER(5)
+ MGRSSN                                             CHAR(9)
+ MGRSTART_DATE                                      DATE
+
+SQL> update department set mgrssn='123456789',mgrstart_date='01-oct-88' where dno=5;
+
+1 row updated.
+
+SQL> alter table employee add constraint empssn foreign key (superssn) references employee(ssn) on delete set null;
+alter table employee add constraint empssn foreign key (superssn) references employee(ssn) on delete set null
+                                           *
+ERROR at line 1:
+ORA-02275: such a referential constraint already exists in the table 
+
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ FNAME                                     NOT NULL VARCHAR2(15)
+ MINIT                                              CHAR(2)
+ LNAME                                     NOT NULL VARCHAR2(15)
+ SSN                                       NOT NULL CHAR(9)
+ BDATE                                              DATE
+ ADDRESS                                            VARCHAR2(50)
+ SEX                                                CHAR(1)
+ SALARY                                             NUMBER(7)
+ SUPERSSN                                           CHAR(9)
+ DEPNO                                              NUMBER(5)
+
+SQL> alter table employee add constraint con_fk foreign key (superssn) references employee(ssn) on delete set null;
+alter table employee add constraint con_fk foreign key (superssn) references employee(ssn) on delete set null
+                                           *
+ERROR at line 1:
+ORA-02275: such a referential constraint already exists in the table 
+
+
+SQL> alter table employee add constraint con_fk6 foreign key (superssn) references employee(ssn) on delete set null;
+alter table employee add constraint con_fk6 foreign key (superssn) references employee(ssn) on delete set null
+                                            *
+ERROR at line 1:
+ORA-02275: such a referential constraint already exists in the table 
+
+
+SQL> alter table employee add constraint con_fk7 foreign key (superssn) references employee(ssn) on delete set null;
+alter table employee add constraint con_fk7 foreign key (superssn) references employee(ssn) on delete set null
+                                            *
+ERROR at line 1:
+ORA-02275: such a referential constraint already exists in the table 
+
+
+SQL> alter table employee add constraint con_fk11 foreign key (superssn) references employee(ssn) on delete set null;
+alter table employee add constraint con_fk11 foreign key (superssn) references employee(ssn) on delete set null
+                                             *
+ERROR at line 1:
+ORA-02275: such a referential constraint already exists in the table 
+
+
+SQL> select constraint_name,constraint_type from user_constraints where table_name='Employee';
+
+no rows selected
+
+SQL> select constraint_name,constraint_type from user_constraints where table_name='EMPLOYEE';
+
+CONSTRAINT_NAME                C                                                
+------------------------------ -                                                
+CON_FNAME                      C                                                
+CON_LNAME                      C                                                
+CON_FK                         R                                                
+CON_PK                         P                                                
+CON_SEX                        C                                                
+CON_FK1                        R                                                
+
+6 rows selected.
+
+SQL> alter table employee drop constraint con_fk1 foreign key (superssn) references employee(ssn) on delete set null;
+alter table employee drop constraint con_fk1 foreign key (superssn) references employee(ssn) on delete set null
+                                             *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> alter table employee drop constraint con_fk1 foreign key(superssn) references employee(ssn) on delete set null;;
+alter table employee drop constraint con_fk1 foreign key(superssn) references employee(ssn) on delete set null;
+                                             *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> select constraint_name,constraint_type from user_constraints where table_name='EMPLOYEE';
+
+CONSTRAINT_NAME                C                                                
+------------------------------ -                                                
+CON_FNAME                      C                                                
+CON_LNAME                      C                                                
+CON_FK                         R                                                
+CON_PK                         P                                                
+CON_SEX                        C                                                
+CON_FK1                        R                                                
+
+6 rows selected.
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ FNAME                                     NOT NULL VARCHAR2(15)
+ MINIT                                              CHAR(2)
+ LNAME                                     NOT NULL VARCHAR2(15)
+ SSN                                       NOT NULL CHAR(9)
+ BDATE                                              DATE
+ ADDRESS                                            VARCHAR2(50)
+ SEX                                                CHAR(1)
+ SALARY                                             NUMBER(7)
+ SUPERSSN                                           CHAR(9)
+ DEPNO                                              NUMBER(5)
+
+SQL> select constraint_name,constraint_type from user_constraints where table_name='EMPLOYEE';
+
+CONSTRAINT_NAME                C                                                
+------------------------------ -                                                
+CON_FNAME                      C                                                
+CON_LNAME                      C                                                
+CON_FK                         R                                                
+CON_PK                         P                                                
+CON_SEX                        C                                                
+CON_FK1                        R                                                
+
+6 rows selected.
+
+SQL> alter table employee drop constraint con_fk1 foreign key(superssn) references employee(ssn) on delete set null;
+alter table employee drop constraint con_fk1 foreign key(superssn) references employee(ssn) on delete set null
+                                             *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> alter table project add constraint con_unique UNIQUE(Pname);
+
+Table altered.
+
+SQL> alter table employee modify(SEX char(1) constraint con_sex1 NOT NULL);
+
+Table altered.
+
+SQL> alter table employee modify salary number(7,3);
+alter table employee modify salary number(7,3)
+                            *
+ERROR at line 1:
+ORA-01440: column to be modified must be empty to decrease precision or scale 
+
+
+SQL> commit;
+
+Commit complete.
+
+SQL> spool off;

@@ -1,0 +1,758 @@
+SQL> desc employee
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ FNAME                                     NOT NULL VARCHAR2(15)
+ MNAME                                              CHAR(2)
+ LNAME                                     NOT NULL VARCHAR2(15)
+ SSN_NO                                    NOT NULL CHAR(9)
+ DOB                                                DATE
+ ADDR                                               VARCHAR2(50)
+ SEX                                                CHAR(1)
+ SALARY                                             NUMBER(7)
+ SPRVSR_SSN                                         CHAR(9)
+ DEPT_NO                                            NUMBER(5)
+
+SQL> select ssn_no,lname from employee
+  2  ;
+
+SSN_NO    LNAME                                                                 
+--------- ---------------                                                       
+554433221 gilbert                                                               
+543216789 PAN                                                                   
+333445555 WONG                                                                  
+987654321 WALLACE                                                               
+123456789 SMITH                                                                 
+666884444 NARAYAN                                                               
+453453453 ENGLISH                                                               
+888665555 BORG                                                                  
+999887777 ZELAYA                                                                
+987987987 JABBAR                                                                
+
+10 rows selected.
+
+SQL> select ssn_no,lname from employee where dob='xx-may-yyyy';
+select ssn_no,lname from employee where dob='xx-may-yyyy'
+                                            *
+ERROR at line 1:
+ORA-01858: a non-numeric character was found where a numeric was expected 
+
+
+SQL> select * from employee where 10000<salary<25000;
+select * from employee where 10000<salary<25000
+                                         *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select * from employee where salary>10000 and salary<25000;
+
+no rows selected
+
+SQL> select ssn_no,lname from employee where dob like '%may%';
+
+no rows selected
+
+SQL> select * from employee where sprvsr_ssn is not null;
+
+FNAME           MN LNAME           SSN_NO    DOB                                
+--------------- -- --------------- --------- ---------                          
+ADDR                                               S     SALARY SPRVSR_SS       
+-------------------------------------------------- - ---------- ---------       
+   DEPT_NO                                                                      
+----------                                                                      
+doug            e  gilbert         554433221 09-JUN-75                          
+11 S 59 E,SALT LAKE CITY, UT                       M      80000 NULL            
+         3                                                                      
+                                                                                
+JOYCE              PAN             543216789 07-FEB-80                          
+35 S 18 E, SALT LAKE CITY, UT                      F      70000 NULL            
+         2                                                                      
+
+FNAME           MN LNAME           SSN_NO    DOB                                
+--------------- -- --------------- --------- ---------                          
+ADDR                                               S     SALARY SPRVSR_SS       
+-------------------------------------------------- - ---------- ---------       
+   DEPT_NO                                                                      
+----------                                                                      
+                                                                                
+FRANKIN         T  WONG            333445555 08-DEC-85                          
+638 VOSS HOUSTON,TX                                M      40000 554433221       
+         4                                                                      
+                                                                                
+JENNIFER        S  WALLACE         987654321 20-JUN-77                          
+291 BERRY,BELLAIRE, TX                             F      43000 554433221       
+
+FNAME           MN LNAME           SSN_NO    DOB                                
+--------------- -- --------------- --------- ---------                          
+ADDR                                               S     SALARY SPRVSR_SS       
+-------------------------------------------------- - ---------- ---------       
+   DEPT_NO                                                                      
+----------                                                                      
+         4                                                                      
+                                                                                
+JOHN            B  SMITH           123456789 09-JAN-67                          
+731 FONDREN, HOUSTON, TX                           M      30000 333445555       
+         5                                                                      
+                                                                                
+RAMESH          K  NARAYAN         666884444 15-SEP-76                          
+
+FNAME           MN LNAME           SSN_NO    DOB                                
+--------------- -- --------------- --------- ---------                          
+ADDR                                               S     SALARY SPRVSR_SS       
+-------------------------------------------------- - ---------- ---------       
+   DEPT_NO                                                                      
+----------                                                                      
+975 FIRE OAK, HUMBLE, TX                           M      38000 333445555       
+         5                                                                      
+                                                                                
+JOYCE           A  ENGLISH         453453453 31-JUL-73                          
+5631 RICE, HOUSTON, TX                             F      25000 333445555       
+         5                                                                      
+                                                                                
+
+FNAME           MN LNAME           SSN_NO    DOB                                
+--------------- -- --------------- --------- ---------                          
+ADDR                                               S     SALARY SPRVSR_SS       
+-------------------------------------------------- - ---------- ---------       
+   DEPT_NO                                                                      
+----------                                                                      
+JAMES           E  BORG            888665555 10-NOV-81                          
+450 STONE, HOUSTON, TX                             M      55000 543216789       
+         1                                                                      
+                                                                                
+ALICIA          J  ZELAYA          999887777 19-JUL-72                          
+3321 CASTLE, SPRING, TX                            F      25000 987654321       
+         4                                                                      
+
+FNAME           MN LNAME           SSN_NO    DOB                                
+--------------- -- --------------- --------- ---------                          
+ADDR                                               S     SALARY SPRVSR_SS       
+-------------------------------------------------- - ---------- ---------       
+   DEPT_NO                                                                      
+----------                                                                      
+                                                                                
+AHMAD           V  JABBAR          987987987 29-MAR-74                          
+980 DALLAS, HOUSTON, TX                            M      25000 987654321       
+         4                                                                      
+                                                                                
+
+10 rows selected.
+
+SQL> select fname,mname,lname from employee where sprvsr_ssn is not null;
+
+FNAME           MN LNAME                                                        
+--------------- -- ---------------                                              
+doug            e  gilbert                                                      
+JOYCE              PAN                                                          
+FRANKIN         T  WONG                                                         
+JENNIFER        S  WALLACE                                                      
+JOHN            B  SMITH                                                        
+RAMESH          K  NARAYAN                                                      
+JOYCE           A  ENGLISH                                                      
+JAMES           E  BORG                                                         
+ALICIA          J  ZELAYA                                                       
+AHMAD           V  JABBAR                                                       
+
+10 rows selected.
+
+SQL> select fname,mname,lname from employee where sprvsr_ssn is null;
+
+no rows selected
+
+SQL> update employee set sprvsr_ssn='' where sprvsr_ssn='null';
+
+0 rows updated.
+
+SQL> update employee set sprvsr_ssn='' where sprvsr_ssn='NULL';
+
+2 rows updated.
+
+SQL> select * from employee where sprvsr_ssn is not null;
+
+FNAME           MN LNAME           SSN_NO    DOB                                
+--------------- -- --------------- --------- ---------                          
+ADDR                                               S     SALARY SPRVSR_SS       
+-------------------------------------------------- - ---------- ---------       
+   DEPT_NO                                                                      
+----------                                                                      
+FRANKIN         T  WONG            333445555 08-DEC-85                          
+638 VOSS HOUSTON,TX                                M      40000 554433221       
+         4                                                                      
+                                                                                
+JENNIFER        S  WALLACE         987654321 20-JUN-77                          
+291 BERRY,BELLAIRE, TX                             F      43000 554433221       
+         4                                                                      
+
+FNAME           MN LNAME           SSN_NO    DOB                                
+--------------- -- --------------- --------- ---------                          
+ADDR                                               S     SALARY SPRVSR_SS       
+-------------------------------------------------- - ---------- ---------       
+   DEPT_NO                                                                      
+----------                                                                      
+                                                                                
+JOHN            B  SMITH           123456789 09-JAN-67                          
+731 FONDREN, HOUSTON, TX                           M      30000 333445555       
+         5                                                                      
+                                                                                
+RAMESH          K  NARAYAN         666884444 15-SEP-76                          
+975 FIRE OAK, HUMBLE, TX                           M      38000 333445555       
+
+FNAME           MN LNAME           SSN_NO    DOB                                
+--------------- -- --------------- --------- ---------                          
+ADDR                                               S     SALARY SPRVSR_SS       
+-------------------------------------------------- - ---------- ---------       
+   DEPT_NO                                                                      
+----------                                                                      
+         5                                                                      
+                                                                                
+JOYCE           A  ENGLISH         453453453 31-JUL-73                          
+5631 RICE, HOUSTON, TX                             F      25000 333445555       
+         5                                                                      
+                                                                                
+JAMES           E  BORG            888665555 10-NOV-81                          
+
+FNAME           MN LNAME           SSN_NO    DOB                                
+--------------- -- --------------- --------- ---------                          
+ADDR                                               S     SALARY SPRVSR_SS       
+-------------------------------------------------- - ---------- ---------       
+   DEPT_NO                                                                      
+----------                                                                      
+450 STONE, HOUSTON, TX                             M      55000 543216789       
+         1                                                                      
+                                                                                
+ALICIA          J  ZELAYA          999887777 19-JUL-72                          
+3321 CASTLE, SPRING, TX                            F      25000 987654321       
+         4                                                                      
+                                                                                
+
+FNAME           MN LNAME           SSN_NO    DOB                                
+--------------- -- --------------- --------- ---------                          
+ADDR                                               S     SALARY SPRVSR_SS       
+-------------------------------------------------- - ---------- ---------       
+   DEPT_NO                                                                      
+----------                                                                      
+AHMAD           V  JABBAR          987987987 29-MAR-74                          
+980 DALLAS, HOUSTON, TX                            M      25000 987654321       
+         4                                                                      
+                                                                                
+
+8 rows selected.
+
+SQL> select * from employee where dept_no is not null;
+
+FNAME           MN LNAME           SSN_NO    DOB                                
+--------------- -- --------------- --------- ---------                          
+ADDR                                               S     SALARY SPRVSR_SS       
+-------------------------------------------------- - ---------- ---------       
+   DEPT_NO                                                                      
+----------                                                                      
+doug            e  gilbert         554433221 09-JUN-75                          
+11 S 59 E,SALT LAKE CITY, UT                       M      80000                 
+         3                                                                      
+                                                                                
+JOYCE              PAN             543216789 07-FEB-80                          
+35 S 18 E, SALT LAKE CITY, UT                      F      70000                 
+         2                                                                      
+
+FNAME           MN LNAME           SSN_NO    DOB                                
+--------------- -- --------------- --------- ---------                          
+ADDR                                               S     SALARY SPRVSR_SS       
+-------------------------------------------------- - ---------- ---------       
+   DEPT_NO                                                                      
+----------                                                                      
+                                                                                
+FRANKIN         T  WONG            333445555 08-DEC-85                          
+638 VOSS HOUSTON,TX                                M      40000 554433221       
+         4                                                                      
+                                                                                
+JENNIFER        S  WALLACE         987654321 20-JUN-77                          
+291 BERRY,BELLAIRE, TX                             F      43000 554433221       
+
+FNAME           MN LNAME           SSN_NO    DOB                                
+--------------- -- --------------- --------- ---------                          
+ADDR                                               S     SALARY SPRVSR_SS       
+-------------------------------------------------- - ---------- ---------       
+   DEPT_NO                                                                      
+----------                                                                      
+         4                                                                      
+                                                                                
+JOHN            B  SMITH           123456789 09-JAN-67                          
+731 FONDREN, HOUSTON, TX                           M      30000 333445555       
+         5                                                                      
+                                                                                
+RAMESH          K  NARAYAN         666884444 15-SEP-76                          
+
+FNAME           MN LNAME           SSN_NO    DOB                                
+--------------- -- --------------- --------- ---------                          
+ADDR                                               S     SALARY SPRVSR_SS       
+-------------------------------------------------- - ---------- ---------       
+   DEPT_NO                                                                      
+----------                                                                      
+975 FIRE OAK, HUMBLE, TX                           M      38000 333445555       
+         5                                                                      
+                                                                                
+JOYCE           A  ENGLISH         453453453 31-JUL-73                          
+5631 RICE, HOUSTON, TX                             F      25000 333445555       
+         5                                                                      
+                                                                                
+
+FNAME           MN LNAME           SSN_NO    DOB                                
+--------------- -- --------------- --------- ---------                          
+ADDR                                               S     SALARY SPRVSR_SS       
+-------------------------------------------------- - ---------- ---------       
+   DEPT_NO                                                                      
+----------                                                                      
+JAMES           E  BORG            888665555 10-NOV-81                          
+450 STONE, HOUSTON, TX                             M      55000 543216789       
+         1                                                                      
+                                                                                
+ALICIA          J  ZELAYA          999887777 19-JUL-72                          
+3321 CASTLE, SPRING, TX                            F      25000 987654321       
+         4                                                                      
+
+FNAME           MN LNAME           SSN_NO    DOB                                
+--------------- -- --------------- --------- ---------                          
+ADDR                                               S     SALARY SPRVSR_SS       
+-------------------------------------------------- - ---------- ---------       
+   DEPT_NO                                                                      
+----------                                                                      
+                                                                                
+AHMAD           V  JABBAR          987987987 29-MAR-74                          
+980 DALLAS, HOUSTON, TX                            M      25000 987654321       
+         4                                                                      
+                                                                                
+
+10 rows selected.
+
+SQL> select fname,mname,lname,dept_no from employee where fname='JOYCE' or fname='PAUL' and lname='ABRAHAM';
+
+FNAME           MN LNAME              DEPT_NO                                   
+--------------- -- --------------- ----------                                   
+JOYCE              PAN                      2                                   
+JOYCE           A  ENGLISH                  5                                   
+
+SQL> select fname,mname,lname,dept_no from employee where fname='JOYCE' and lname='ABRAHAM' or fname='PAUL' and lname='ABRAHAM';
+
+no rows selected
+
+SQL> select * from employee where lname='SMITH' or lname='NARAYAN' or lname='BORG';
+
+FNAME           MN LNAME           SSN_NO    DOB                                
+--------------- -- --------------- --------- ---------                          
+ADDR                                               S     SALARY SPRVSR_SS       
+-------------------------------------------------- - ---------- ---------       
+   DEPT_NO                                                                      
+----------                                                                      
+JOHN            B  SMITH           123456789 09-JAN-67                          
+731 FONDREN, HOUSTON, TX                           M      30000 333445555       
+         5                                                                      
+                                                                                
+RAMESH          K  NARAYAN         666884444 15-SEP-76                          
+975 FIRE OAK, HUMBLE, TX                           M      38000 333445555       
+         5                                                                      
+
+FNAME           MN LNAME           SSN_NO    DOB                                
+--------------- -- --------------- --------- ---------                          
+ADDR                                               S     SALARY SPRVSR_SS       
+-------------------------------------------------- - ---------- ---------       
+   DEPT_NO                                                                      
+----------                                                                      
+                                                                                
+JAMES           E  BORG            888665555 10-NOV-81                          
+450 STONE, HOUSTON, TX                             M      55000 543216789       
+         1                                                                      
+                                                                                
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ FNAME                                     NOT NULL VARCHAR2(15)
+ MNAME                                              CHAR(2)
+ LNAME                                     NOT NULL VARCHAR2(15)
+ SSN_NO                                    NOT NULL CHAR(9)
+ DOB                                                DATE
+ ADDR                                               VARCHAR2(50)
+ SEX                                                CHAR(1)
+ SALARY                                             NUMBER(7)
+ SPRVSR_SSN                                         CHAR(9)
+ DEPT_NO                                            NUMBER(5)
+
+SQL> alter table employee add column yoe number(2);
+alter table employee add column yoe number(2)
+                         *
+ERROR at line 1:
+ORA-00904: : invalid identifier 
+
+
+SQL> alter table employee add column yoe number(2);
+alter table employee add column yoe number(2)
+                         *
+ERROR at line 1:
+ORA-00904: : invalid identifier 
+
+
+SQL> desc department;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPT_NAME                                          VARCHAR2(15)
+ DEPT_NUM                                           NUMBER(5)
+ MNGR_SSN                                           CHAR(9)
+ MNGRSTRTDATE                                       DATE
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ FNAME                                     NOT NULL VARCHAR2(15)
+ MNAME                                              CHAR(2)
+ LNAME                                     NOT NULL VARCHAR2(15)
+ SSN_NO                                    NOT NULL CHAR(9)
+ DOB                                                DATE
+ ADDR                                               VARCHAR2(50)
+ SEX                                                CHAR(1)
+ SALARY                                             NUMBER(7)
+ SPRVSR_SSN                                         CHAR(9)
+ DEPT_NO                                            NUMBER(5)
+
+SQL> select employee.sprvsr_ssn,department.mgrstrtdate from employee join department on employee.dept_no=dept_num;
+select employee.sprvsr_ssn,department.mgrstrtdate from employee join department on employee.dept_no=dept_num
+                           *
+ERROR at line 1:
+ORA-00904: "DEPARTMENT"."MGRSTRTDATE": invalid identifier 
+
+
+SQL> select employee.sprvsr_ssn,department.mngrstrtdate from employee join department on employee.dept_no=dept_num;
+
+SPRVSR_SS MNGRSTRTD                                                             
+--------- ---------                                                             
+          22-SEP-11                                                             
+          04-JAN-10                                                             
+554433221 01-JAN-07                                                             
+554433221 01-JAN-07                                                             
+333445555 22-MAY-08                                                             
+333445555 22-MAY-08                                                             
+333445555 22-MAY-08                                                             
+543216789 19-JUN-06                                                             
+987654321 01-JAN-07                                                             
+987654321 01-JAN-07                                                             
+
+10 rows selected.
+
+SQL> select sprvsr_ssn from employee where sysdate-mngrstrtdate=5;
+select sprvsr_ssn from employee where sysdate-mngrstrtdate=5
+                                              *
+ERROR at line 1:
+ORA-00904: "MNGRSTRTDATE": invalid identifier 
+
+
+SQL> select sprvsr_ssn from employee where mngrstrtdate='%2008';
+select sprvsr_ssn from employee where mngrstrtdate='%2008'
+                                      *
+ERROR at line 1:
+ORA-00904: "MNGRSTRTDATE": invalid identifier 
+
+
+SQL> select sprvsr_ssn from employee where mngrstrtdate like '%2008';
+select sprvsr_ssn from employee where mngrstrtdate like '%2008'
+                                      *
+ERROR at line 1:
+ORA-00904: "MNGRSTRTDATE": invalid identifier 
+
+
+SQL> select mngrstrtdate from employee;
+select mngrstrtdate from employee
+       *
+ERROR at line 1:
+ORA-00904: "MNGRSTRTDATE": invalid identifier 
+
+
+SQL> select employee.sprvsr_ssn,department.mngrstrtdate from employee join department on employee.dept_no=dept_num where mngrstrtdate like '%2008';
+
+no rows selected
+
+SQL> select employee.sprvsr_ssn,department.mngrstrtdate from employee join department on employee.dept_no=dept_num where department.mngrstrtdate like '%2008';
+
+no rows selected
+
+SQL> select employee.sprvsr_ssn,department.mngrstrtdate from employee join department on employee.dept_no=dept_num where department.mngrstrtdate like '%2008%';
+
+no rows selected
+
+SQL> select employee.sprvsr_ssn,department.mngrstrtdate from employee join department on employee.dept_no=department.dept_num where department.mngrstrtdate like '%2008';
+
+no rows selected
+
+SQL> select dob from employee;
+
+DOB                                                                             
+---------                                                                       
+09-JUN-75                                                                       
+07-FEB-80                                                                       
+08-DEC-85                                                                       
+20-JUN-77                                                                       
+09-JAN-67                                                                       
+15-SEP-76                                                                       
+31-JUL-73                                                                       
+10-NOV-81                                                                       
+19-JUL-72                                                                       
+29-MAR-74                                                                       
+
+10 rows selected.
+
+SQL> select to_char(dob,'dd-month-yyyy') from employee;
+
+TO_CHAR(DOB,'DD-M                                                               
+-----------------                                                               
+09-june     -1975                                                               
+07-february -1980                                                               
+08-december -1985                                                               
+20-june     -1977                                                               
+09-january  -1967                                                               
+15-september-1976                                                               
+31-july     -1973                                                               
+10-november -1981                                                               
+19-july     -1972                                                               
+29-march    -1974                                                               
+
+10 rows selected.
+
+SQL> desc department;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPT_NAME                                          VARCHAR2(15)
+ DEPT_NUM                                           NUMBER(5)
+ MNGR_SSN                                           CHAR(9)
+ MNGRSTRTDATE                                       DATE
+
+SQL> select mngr_ssn where dept_name like '%facture';
+select mngr_ssn where dept_name like '%facture'
+                *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select mngr_ssn from department where dept_name like '%facture';
+
+no rows selected
+
+SQL> select mngr_ssn from department where dept_name like '%facture%';
+
+no rows selected
+
+SQL> select mngr_ssn from department where dept_name like '%FACTURE%';
+
+MNGR_SSN                                                                        
+---------                                                                       
+888665555                                                                       
+
+SQL> desc project
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PRJCTNAME                                          VARCHAR2(15)
+ PRJCTNMBR                                          NUMBER(5)
+ PRJCTLOC                                           VARCHAR2(15)
+ DEPT_NAME                                          NUMBER(5)
+
+SQL> select prjctloc from project where prjctloc like '%H%';
+
+PRJCTLOC                                                                        
+---------------                                                                 
+HOUSTON                                                                         
+CHICAGO                                                                         
+
+SQL> select prjctloc from project where prjctloc like 'H%';
+
+PRJCTLOC                                                                        
+---------------                                                                 
+HOUSTON                                                                         
+
+SQL> desc department
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPT_NAME                                          VARCHAR2(15)
+ DEPT_NUM                                           NUMBER(5)
+ MNGR_SSN                                           CHAR(9)
+ MNGRSTRTDATE                                       DATE
+
+SQL> select dept_name from department where dept_name like '%E';
+
+DEPT_NAME                                                                       
+---------------                                                                 
+MANUFACTURE                                                                     
+FINANCE                                                                         
+
+SQL> select fname,mname,lname from employee where sprvsr_ssn='554433221' or sprvsr_ssn='333445555';
+
+FNAME           MN LNAME                                                        
+--------------- -- ---------------                                              
+FRANKIN         T  WONG                                                         
+JENNIFER        S  WALLACE                                                      
+JOHN            B  SMITH                                                        
+RAMESH          K  NARAYAN                                                      
+JOYCE           A  ENGLISH                                                      
+
+SQL> select upper(fname),lower(lname) from employee;
+
+UPPER(FNAME)    LOWER(LNAME)                                                    
+--------------- ---------------                                                 
+DOUG            gilbert                                                         
+JOYCE           pan                                                             
+FRANKIN         wong                                                            
+JENNIFER        wallace                                                         
+JOHN            smith                                                           
+RAMESH          narayan                                                         
+JOYCE           english                                                         
+JAMES           borg                                                            
+ALICIA          zelaya                                                          
+AHMAD           jabbar                                                          
+
+10 rows selected.
+
+SQL> select fname,substring(lname,1,1) from employee;
+select fname,substring(lname,1,1) from employee
+             *
+ERROR at line 1:
+ORA-00904: "SUBSTRING": invalid identifier 
+
+
+SQL> select fname, substring(lname,1,1) from employee;
+select fname, substring(lname,1,1) from employee
+              *
+ERROR at line 1:
+ORA-00904: "SUBSTRING": invalid identifier 
+
+
+SQL> select fname, substring(lname,0,1) from employee;
+select fname, substring(lname,0,1) from employee
+              *
+ERROR at line 1:
+ORA-00904: "SUBSTRING": invalid identifier 
+
+
+SQL> select substring(fname,0,8), substring(lname,0,1) from employee;
+select substring(fname,0,8), substring(lname,0,1) from employee
+                             *
+ERROR at line 1:
+ORA-00904: "SUBSTRING": invalid identifier 
+
+
+SQL> select fname,substr(lname,0,1) from employee;
+
+FNAME           S                                                               
+--------------- -                                                               
+doug            g                                                               
+JOYCE           P                                                               
+FRANKIN         W                                                               
+JENNIFER        W                                                               
+JOHN            S                                                               
+RAMESH          N                                                               
+JOYCE           E                                                               
+JAMES           B                                                               
+ALICIA          Z                                                               
+AHMAD           J                                                               
+
+10 rows selected.
+
+SQL> desc employee
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ FNAME                                     NOT NULL VARCHAR2(15)
+ MNAME                                              CHAR(2)
+ LNAME                                     NOT NULL VARCHAR2(15)
+ SSN_NO                                    NOT NULL CHAR(9)
+ DOB                                                DATE
+ ADDR                                               VARCHAR2(50)
+ SEX                                                CHAR(1)
+ SALARY                                             NUMBER(7)
+ SPRVSR_SSN                                         CHAR(9)
+ DEPT_NO                                            NUMBER(5)
+
+SQL> select substr(addr,5,11) from employee;
+
+SUBSTR(ADDR                                                                     
+-----------                                                                     
+ 59 E,SALT                                                                      
+ 18 E, SALT                                                                     
+VOSS HOUSTO                                                                     
+BERRY,BELLA                                                                     
+FONDREN, HO                                                                     
+FIRE OAK, H                                                                     
+ RICE, HOUS                                                                     
+STONE, HOUS                                                                     
+ CASTLE, SP                                                                     
+DALLAS, HOU                                                                     
+
+10 rows selected.
+
+SQL> select to_char(dob,'dd-month(+3)-yyyy') from employee;
+select to_char(dob,'dd-month(+3)-yyyy') from employee
+                   *
+ERROR at line 1:
+ORA-01821: date format not recognized 
+
+
+SQL> select add_months(mngrstrtdate,3) from department;
+
+ADD_MONTH                                                                       
+---------                                                                       
+19-SEP-06                                                                       
+04-APR-10                                                                       
+22-DEC-11                                                                       
+01-APR-07                                                                       
+22-AUG-08                                                                       
+
+SQL> select fname,datediff(dob,2013-08-07) from employee;
+select fname,datediff(dob,2013-08-07) from employee
+             *
+ERROR at line 1:
+ORA-00904: "DATEDIFF": invalid identifier 
+
+
+SQL> select fname,datediff(sysdate,dob) from employee;
+select fname,datediff(sysdate,dob) from employee
+             *
+ERROR at line 1:
+ORA-00904: "DATEDIFF": invalid identifier 
+
+
+SQL> select fname,Datediff(sysdate,dob) from employee;
+select fname,Datediff(sysdate,dob) from employee
+             *
+ERROR at line 1:
+ORA-00904: "DATEDIFF": invalid identifier 
+
+
+SQL> select length(addr) from employee;
+
+LENGTH(ADDR)                                                                    
+------------                                                                    
+          28                                                                    
+          29                                                                    
+          19                                                                    
+          22                                                                    
+          24                                                                    
+          24                                                                    
+          22                                                                    
+          22                                                                    
+          23                                                                    
+          23                                                                    
+
+10 rows selected.
+
+SQL> select fname,mname,lname,round(salary,2) from employee;
+
+FNAME           MN LNAME           ROUND(SALARY,2)                              
+--------------- -- --------------- ---------------                              
+doug            e  gilbert                   80000                              
+JOYCE              PAN                       70000                              
+FRANKIN         T  WONG                      40000                              
+JENNIFER        S  WALLACE                   43000                              
+JOHN            B  SMITH                     30000                              
+RAMESH          K  NARAYAN                   38000                              
+JOYCE           A  ENGLISH                   25000                              
+JAMES           E  BORG                      55000                              
+ALICIA          J  ZELAYA                    25000                              
+AHMAD           V  JABBAR                    25000                              
+
+10 rows selected.
+
+SQL> spool off;

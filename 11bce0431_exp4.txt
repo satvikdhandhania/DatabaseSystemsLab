@@ -1,0 +1,299 @@
+SQL> select count(*) from employee where ssn='333445555';
+
+  COUNT(*)                                                                      
+----------                                                                      
+         1                                                                      
+
+SQL> select dname,avg(salary),min(salary),max(salary) from employee,department where dno=depno;
+select dname,avg(salary),min(salary),max(salary) from employee,department where dno=depno
+       *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+SQL> select dname,avg(salary),min(salary),max(salary) from employee,department where dno=depno group by dno;
+select dname,avg(salary),min(salary),max(salary) from employee,department where dno=depno group by dno
+       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select dname,avg(salary),min(salary),max(salary) from employee,department where dno=depno group by dname;
+
+DNAME           AVG(SALARY) MIN(SALARY) MAX(SALARY)                             
+--------------- ----------- ----------- -----------                             
+Headquater            80000       80000       80000                             
+Research              40600       25000       70000                             
+Manufacture           56500       55000       58000                             
+Finance               31000       25000       43000                             
+
+SQL> select count(*) from employee where round(months_between(sysdate,bdate)/12,1)>40;
+
+  COUNT(*)                                                                      
+----------                                                                      
+         3                                                                      
+
+SQL> select count(*), dno from department,employee where
+  2  ;
+
+*
+ERROR at line 2:
+ORA-00936: missing expression 
+
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ FNAME                                     NOT NULL VARCHAR2(15)
+ MINIT                                              CHAR(2)
+ LNAME                                     NOT NULL VARCHAR2(15)
+ SSN                                       NOT NULL CHAR(9)
+ BDATE                                              DATE
+ ADDRESS                                            VARCHAR2(50)
+ SEX                                       NOT NULL CHAR(1)
+ SALARY                                             NUMBER(7)
+ SUPERSSN                                           CHAR(9)
+ DEPNO                                              NUMBER(5)
+
+SQL> select count(*), dno from department,employee where  employee.minit='E';
+select count(*), dno from department,employee where  employee.minit='E'
+                 *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+SQL> select count(depno), dno from department,employee where  employee.minit='E'group by depno;
+select count(depno), dno from department,employee where  employee.minit='E'group by depno
+                     *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select count(depno), dno from department,employee where  employee.minit='E'group by dno;
+
+COUNT(DEPNO)        DNO                                                         
+------------ ----------                                                         
+           2          1                                                         
+           2          2                                                         
+           2          4                                                         
+           2          5                                                         
+           2          3                                                         
+
+SQL> select min(salary) from employee group by depno;
+
+MIN(SALARY)                                                                     
+-----------                                                                     
+      55000                                                                     
+      25000                                                                     
+      25000                                                                     
+      80000                                                                     
+
+SQL> select min(salary),depno from employee where round(months_between(sysdate,bdate)/12,1)>40 group by depno;
+
+MIN(SALARY)      DEPNO                                                          
+----------- ----------                                                          
+      25000          5                                                          
+      25000          4                                                          
+
+SQL> select * from employee;
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+Robert          F  Scott           943775543 21-JUN-75                          
+2365 Newcastle rd ,Bellaire, TX                    M      58000 888665555       
+         1                                                                      
+                                                                                
+Joyce              PAN             543216789 07-FEB-80                          
+11 S59 E, Salt Lake City,UT                        F      70000                 
+         5                                                                      
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+                                                                                
+Doug            E  Gilbert         554433221 09-JUN-75                          
+11 S 59 E ,Salt Lake City,UT                       M      80000                 
+         3                                                                      
+                                                                                
+Frankin         T  Wong            333445555 08-DEC-85                          
+638 Voss Houston ,TX                               M      40000 554433221       
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+         5                                                                      
+                                                                                
+Jennifer        S  Wallace         987654321 20-JUN-77                          
+291 Berry Bellaire ,TX                             F      43000 554433221       
+         4                                                                      
+                                                                                
+John            B  Smith           123456789 09-JAN-67                          
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+731 Fondren Houston,TX                             M      30000 333445555       
+         5                                                                      
+                                                                                
+Ramesh          K  Narayan         666884444 15-SEP-76                          
+975 Fire Oak Humble,TX                             M      38000 333445555       
+         5                                                                      
+                                                                                
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+Joyce           A  English         453453453 31-JUL-73                          
+5631 Rice Houston, TX                              F      25000 333445555       
+         5                                                                      
+                                                                                
+James           E  Borg            888665555 10-NOV-81                          
+450 Stone Houston,TX                               M      55000 543216789       
+         1                                                                      
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+                                                                                
+Alicia          J  Zelaya          999887777 19-JUL-72                          
+3321 Castle Spring,TX                              F      25000 987654321       
+         4                                                                      
+                                                                                
+Ahmad           V  Jabbar          987987987 29-MAR-74                          
+980 Dallas Houston,TX                              M      25000 987654321       
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+         4                                                                      
+                                                                                
+
+11 rows selected.
+
+SQL> select min(salary),depno from employee where round(months_between(sysdate,bdate)/12,1)>40 group by depno;
+
+MIN(SALARY)      DEPNO                                                          
+----------- ----------                                                          
+      25000          5                                                          
+      25000          4                                                          
+
+SQL> SELECT AVG(SALARY) from employee where round(months_between(sysdate,bdate)/12,1)>40;
+
+AVG(SALARY)                                                                     
+-----------                                                                     
+ 26666.6667                                                                     
+
+SQL> select count(*),sum(salary),depno from employee group by depno;
+
+  COUNT(*) SUM(SALARY)      DEPNO                                               
+---------- ----------- ----------                                               
+         2      113000          1                                               
+         5      203000          5                                               
+         3       93000          4                                               
+         1       80000          3                                               
+
+SQL> select fname from employee where round(months_between(sysdate,bdate)/12,1)) in(select min(round(months_between(sysdate,bdate)/12,1)) from employee e,department d where e.depno=d.dno group by dno having dname in ('Finance','Research');
+select fname from employee where round(months_between(sysdate,bdate)/12,1)) in(select min(round(months_between(sysdate,bdate)/12,1)) from employee e,department d where e.depno=d.dno group by dno having dname in ('Finance','Research')
+                                                                          *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> select fname from employee where round(months_between(sysdate,bdate)/12,1) in(select min(round(months_between(sysdate,bdate)/12,1)) from employee e,department d where e.depno=d.dno group by dno having dname in ('Finance','Research');
+select fname from employee where round(months_between(sysdate,bdate)/12,1) in(select min(round(months_between(sysdate,bdate)/12,1)) from employee e,department d where e.depno=d.dno group by dno having dname in ('Finance','Research')
+                                                                                                                                                                                                                                       *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> select fname from employee where round(months_between(sysdate,bdate)/12,1) in(select min(round(months_between(sysdate,bdate)/12,1))) from employee e,department d where e.depno=d.dno group by dno having dname in ('Finance','Research');
+select fname from employee where round(months_between(sysdate,bdate)/12,1) in(select min(round(months_between(sysdate,bdate)/12,1))) from employee e,department d where e.depno=d.dno group by dno having dname in ('Finance','Research')
+                                                                                                                                   *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select fname from employee where round(months_between(sysdate,bdate)/12,1) in(select min(round(months_between(sysdate,bdate)/12,1)) from employee e,department d where e.depno=d.dno group by dno having dname in ('Finance','Research'));
+select fname from employee where round(months_between(sysdate,bdate)/12,1) in(select min(round(months_between(sysdate,bdate)/12,1)) from employee e,department d where e.depno=d.dno group by dno having dname in ('Finance','Research'))
+                                                                                                                                                                                                         *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select fname from employee where round(months_between(sysdate,bdate)/12,1) in(select min(round(months_between(sysdate,bdate)/12,1)) from employee e,department d where e.depno=d.dno group by dno having dname in('Finance','Research'));
+select fname from employee where round(months_between(sysdate,bdate)/12,1) in(select min(round(months_between(sysdate,bdate)/12,1)) from employee e,department d where e.depno=d.dno group by dno having dname in('Finance','Research'))
+                                                                                                                                                                                                         *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select fname from employee where round(months_between(sysdate,bdate)/12,1) in(select min(round(months_between(sysdate,bdate)/12,1)) from employee e,department d where e.depno=d.dno group by dno and dname in('Finance','Research'));));
+select fname from employee where round(months_between(sysdate,bdate)/12,1) in(select min(round(months_between(sysdate,bdate)/12,1)) from employee e,department d where e.depno=d.dno group by dno and dname in('Finance','Research'));))
+                                                                                                                                                                                                  *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> select fname from employee where round(months_between(sysdate,bdate)/12,1) in(select min(round(months_between(sysdate,bdate)/12,1)) from employee e,department d where e.depno=d.dno group by dno and dname in('Finance','Research'));
+select fname from employee where round(months_between(sysdate,bdate)/12,1) in(select min(round(months_between(sysdate,bdate)/12,1)) from employee e,department d where e.depno=d.dno group by dno and dname in('Finance','Research'))
+                                                                                                                                                                                                  *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> select fname from employee where round(months_between(sysdate,bdate)/12,1) in(select min(round(months_between(sysdate,bdate)/12,1)) from employee e,department d where e.depno=d.dno and dname in('Finance','Research')group by dno);
+
+FNAME                                                                           
+---------------                                                                 
+Frankin                                                                         
+Jennifer                                                                        
+
+SQL> select count(*) depno from employee where minit='E' group by depno;
+
+     DEPNO                                                                      
+----------                                                                      
+         1                                                                      
+         1                                                                      
+
+SQL> select count(*), depno from employee where minit='E' group by depno;
+
+  COUNT(*)      DEPNO                                                           
+---------- ----------                                                           
+         1          1                                                           
+         1          3                                                           
+
+SQL> select count(*),depno from employee where address like'%Houston%'group by depno;
+
+  COUNT(*)      DEPNO                                                           
+---------- ----------                                                           
+         1          1                                                           
+         3          5                                                           
+         1          4                                                           
+
+SQL> commit;
+
+Commit complete.
+
+SQL> spool off;

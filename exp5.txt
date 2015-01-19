@@ -1,0 +1,642 @@
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ FNAME                                     NOT NULL VARCHAR2(15)
+ MINIT                                              CHAR(2)
+ LNAME                                     NOT NULL VARCHAR2(15)
+ SSN                                       NOT NULL CHAR(9)
+ BDATE                                              DATE
+ ADDRESS                                            VARCHAR2(50)
+ SEX                                       NOT NULL CHAR(1)
+ SALARY                                             NUMBER(7)
+ SUPERSSN                                           CHAR(9)
+ DEPNO                                              NUMBER(5)
+
+SQL> desc dependent;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_SSN                                            CHAR(9)
+ DNAME                                              VARCHAR2(10)
+ SEX                                                CHAR(1)
+ DOB                                                DATE
+ RELATIONSHIP                                       VARCHAR2(8)
+
+SQL> select distinct fname from employee,dependent where ssn=emp_ssn;
+
+FNAME                                                                           
+---------------                                                                 
+Joyce                                                                           
+John                                                                            
+Frankin                                                                         
+Jennifer                                                                        
+
+SQL> select distinct fname from employee where ssn in(select emp_ssn from dependent);
+
+FNAME                                                                           
+---------------                                                                 
+Joyce                                                                           
+John                                                                            
+Frankin                                                                         
+Jennifer                                                                        
+
+SQL> desc department;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DNAME                                     NOT NULL VARCHAR2(15)
+ DNO                                       NOT NULL NUMBER(5)
+ MGRSSN                                             CHAR(9)
+ MGRSTART_DATE                                      DATE
+
+SQL> select fname,lname from employee where ssn in(select mgrssn from department);
+
+FNAME           LNAME                                                           
+--------------- ---------------                                                 
+John            Smith                                                           
+Joyce           PAN                                                             
+Doug            Gilbert                                                         
+James           Borg                                                            
+Jennifer        Wallace                                                         
+
+SQL> select fname,lname from employee where salary in(select max(salary) from employee,department where ssn=mgrssn);
+
+FNAME           LNAME                                                           
+--------------- ---------------                                                 
+Doug            Gilbert                                                         
+
+SQL> select * from employee;
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+Robert          F  Scott           943775543 21-JUN-75                          
+2365 Newcastle rd ,Bellaire, TX                    M      58000 888665555       
+         1                                                                      
+                                                                                
+Joyce              PAN             543216789 07-FEB-80                          
+11 S59 E, Salt Lake City,UT                        F      70000                 
+         5                                                                      
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+                                                                                
+Doug            E  Gilbert         554433221 09-JUN-75                          
+11 S 59 E ,Salt Lake City,UT                       M      80000                 
+         3                                                                      
+                                                                                
+Frankin         T  Wong            333445555 08-DEC-85                          
+638 Voss Houston ,TX                               M      40000 554433221       
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+         5                                                                      
+                                                                                
+Jennifer        S  Wallace         987654321 20-JUN-77                          
+291 Berry Bellaire ,TX                             F      43000 554433221       
+         4                                                                      
+                                                                                
+John            B  Smith           123456789 09-JAN-67                          
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+731 Fondren Houston,TX                             M      30000 333445555       
+         5                                                                      
+                                                                                
+Ramesh          K  Narayan         666884444 15-SEP-76                          
+975 Fire Oak Humble,TX                             M      38000 333445555       
+         5                                                                      
+                                                                                
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+Joyce           A  English         453453453 31-JUL-73                          
+5631 Rice Houston, TX                              F      25000 333445555       
+         5                                                                      
+                                                                                
+James           E  Borg            888665555 10-NOV-81                          
+450 Stone Houston,TX                               M      55000 543216789       
+         1                                                                      
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+                                                                                
+Alicia          J  Zelaya          999887777 19-JUL-72                          
+3321 Castle Spring,TX                              F      25000 987654321       
+         4                                                                      
+                                                                                
+Ahmad           V  Jabbar          987987987 29-MAR-74                          
+980 Dallas Houston,TX                              M      25000 987654321       
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+         4                                                                      
+                                                                                
+
+11 rows selected.
+
+SQL> select ssn from employee where depno=5 AND salary>(select max(salary) from employee where depno=4;
+select ssn from employee where depno=5 AND salary>(select max(salary) from employee where depno=4
+                                                   *
+ERROR at line 1:
+ORA-00921: unexpected end of SQL command 
+
+
+SQL> select ssn from employee where depno=5 AND salary>(select max(salary) from employee where depno=4);
+
+SSN                                                                             
+---------                                                                       
+543216789                                                                       
+
+SQL> desc department;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DNAME                                     NOT NULL VARCHAR2(15)
+ DNO                                       NOT NULL NUMBER(5)
+ MGRSSN                                             CHAR(9)
+ MGRSTART_DATE                                      DATE
+
+SQL> desc dept_locations;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPNO                                              NUMBER(5)
+ DLOCATION                                          VARCHAR2(15)
+
+SQL> select * from dept_locations;
+
+     DEPNO DLOCATION                                                            
+---------- ---------------                                                      
+         1 houston                                                              
+         1 Chicago                                                              
+         2 New York                                                             
+         2 San Francisco                                                        
+         3 Salt Lake City                                                       
+         4 Stafford                                                             
+         4 Bellaire                                                             
+         5 Sugarland                                                            
+         5 Houston                                                              
+
+9 rows selected.
+
+SQL> select dname from department where dno in(select depno from dept_locations where dlocation Is Not houston);
+select dname from department where dno in(select depno from dept_locations where dlocation Is Not houston)
+                                                                                                  *
+ERROR at line 1:
+ORA-00908: missing NULL keyword 
+
+
+SQL> select dname from department where dno in(select depno from dept_locations where dlocation Not houston);
+select dname from department where dno in(select depno from dept_locations where dlocation Not houston)
+                                                                                               *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> select dname from department where dno in(select depno from dept_locations where dlocation NOT EQUAL TO houston);
+select dname from department where dno in(select depno from dept_locations where dlocation NOT EQUAL TO houston)
+                                                                                               *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> select dname from department where dno in(select depno from dept_locations where dlocation NOT IN (houston));
+select dname from department where dno in(select depno from dept_locations where dlocation NOT IN (houston))
+                                                                                                   *
+ERROR at line 1:
+ORA-00904: "HOUSTON": invalid identifier 
+
+
+SQL> select dname from department where dno in(select depno from dept_locations where dlocation != houston);
+select dname from department where dno in(select depno from dept_locations where dlocation != houston)
+                                                                                              *
+ERROR at line 1:
+ORA-00904: "HOUSTON": invalid identifier 
+
+
+SQL> select dname from department where dno in(select depno from dept_locations where dlocation NOT 'houston');
+select dname from department where dno in(select depno from dept_locations where dlocation NOT 'houston')
+                                                                                               *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> select dname from department where dno in(select depno from dept_locations where dlocation Is not 'houston');
+select dname from department where dno in(select depno from dept_locations where dlocation Is not 'houston')
+                                                                                                  *
+ERROR at line 1:
+ORA-00908: missing NULL keyword 
+
+
+SQL> select dname from department where dno in(select depno from dept_locations where dlocation !='houston');
+
+DNAME                                                                           
+---------------                                                                 
+Manufacture                                                                     
+Administration                                                                  
+Headquater                                                                      
+Finance                                                                         
+Research                                                                        
+
+SQL> select dname from department where dno in(select depno from dept_locations where dlocation NOT 'houston');
+select dname from department where dno in(select depno from dept_locations where dlocation NOT 'houston')
+                                                                                               *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> select dname from department where dno in(select depno from dept_locations where dlocation != 'houston');
+
+DNAME                                                                           
+---------------                                                                 
+Manufacture                                                                     
+Administration                                                                  
+Headquater                                                                      
+Finance                                                                         
+Research                                                                        
+
+SQL> select * from department;
+
+DNAME                  DNO MGRSSN    MGRSTART_                                  
+--------------- ---------- --------- ---------                                  
+Manufacture              1 888665555 19-JUN-06                                  
+Administration           2 543216789 04-JAN-10                                  
+Headquater               3 554433221 22-SEP-11                                  
+Finance                  4 987654321 01-JAN-07                                  
+Research                 5 123456789 01-OCT-88                                  
+
+SQL> select dname from department where dno in(select depno from dept_locations where dlocation NOT in ('houston'));
+
+DNAME                                                                           
+---------------                                                                 
+Manufacture                                                                     
+Administration                                                                  
+Headquater                                                                      
+Finance                                                                         
+Research                                                                        
+
+SQL> select * from dept_locations;
+
+     DEPNO DLOCATION                                                            
+---------- ---------------                                                      
+         1 houston                                                              
+         1 Chicago                                                              
+         2 New York                                                             
+         2 San Francisco                                                        
+         3 Salt Lake City                                                       
+         4 Stafford                                                             
+         4 Bellaire                                                             
+         5 Sugarland                                                            
+         5 Houston                                                              
+
+9 rows selected.
+
+SQL> select * from department;
+
+DNAME                  DNO MGRSSN    MGRSTART_                                  
+--------------- ---------- --------- ---------                                  
+Manufacture              1 888665555 19-JUN-06                                  
+Administration           2 543216789 04-JAN-10                                  
+Headquater               3 554433221 22-SEP-11                                  
+Finance                  4 987654321 01-JAN-07                                  
+Research                 5 123456789 01-OCT-88                                  
+
+SQL> select dname from department where dno NOT in(select depno from dept_locations where dlocation in ('houston'));
+
+DNAME                                                                           
+---------------                                                                 
+Administration                                                                  
+Headquater                                                                      
+Finance                                                                         
+Research                                                                        
+
+SQL> select dname from department where dno NOT in(select depno from dept_locations where dlocation in ('houston','Houston'));
+
+DNAME                                                                           
+---------------                                                                 
+Administration                                                                  
+Headquater                                                                      
+Finance                                                                         
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ FNAME                                     NOT NULL VARCHAR2(15)
+ MINIT                                              CHAR(2)
+ LNAME                                     NOT NULL VARCHAR2(15)
+ SSN                                       NOT NULL CHAR(9)
+ BDATE                                              DATE
+ ADDRESS                                            VARCHAR2(50)
+ SEX                                       NOT NULL CHAR(1)
+ SALARY                                             NUMBER(7)
+ SUPERSSN                                           CHAR(9)
+ DEPNO                                              NUMBER(5)
+
+SQL> select fname,lname from employee where SSN in(select superssn from employee);
+
+FNAME           LNAME                                                           
+--------------- ---------------                                                 
+Frankin         Wong                                                            
+Joyce           PAN                                                             
+Doug            Gilbert                                                         
+James           Borg                                                            
+Jennifer        Wallace                                                         
+
+SQL> select * from employee;
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+Robert          F  Scott           943775543 21-JUN-75                          
+2365 Newcastle rd ,Bellaire, TX                    M      58000 888665555       
+         1                                                                      
+                                                                                
+Joyce              PAN             543216789 07-FEB-80                          
+11 S59 E, Salt Lake City,UT                        F      70000                 
+         5                                                                      
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+                                                                                
+Doug            E  Gilbert         554433221 09-JUN-75                          
+11 S 59 E ,Salt Lake City,UT                       M      80000                 
+         3                                                                      
+                                                                                
+Frankin         T  Wong            333445555 08-DEC-85                          
+638 Voss Houston ,TX                               M      40000 554433221       
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+         5                                                                      
+                                                                                
+Jennifer        S  Wallace         987654321 20-JUN-77                          
+291 Berry Bellaire ,TX                             F      43000 554433221       
+         4                                                                      
+                                                                                
+John            B  Smith           123456789 09-JAN-67                          
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+731 Fondren Houston,TX                             M      30000 333445555       
+         5                                                                      
+                                                                                
+Ramesh          K  Narayan         666884444 15-SEP-76                          
+975 Fire Oak Humble,TX                             M      38000 333445555       
+         5                                                                      
+                                                                                
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+Joyce           A  English         453453453 31-JUL-73                          
+5631 Rice Houston, TX                              F      25000 333445555       
+         5                                                                      
+                                                                                
+James           E  Borg            888665555 10-NOV-81                          
+450 Stone Houston,TX                               M      55000 543216789       
+         1                                                                      
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+                                                                                
+Alicia          J  Zelaya          999887777 19-JUL-72                          
+3321 Castle Spring,TX                              F      25000 987654321       
+         4                                                                      
+                                                                                
+Ahmad           V  Jabbar          987987987 29-MAR-74                          
+980 Dallas Houston,TX                              M      25000 987654321       
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+         4                                                                      
+                                                                                
+
+11 rows selected.
+
+SQL> select * from project;
+
+PNAME                  PNO PLOCATION            DEPNO                           
+--------------- ---------- --------------- ----------                           
+ProjectA              3388 Houston                  1                           
+ProjectB              1945 Salt Lake City           3                           
+ProjectC              6688 Houston                  5                           
+ProjectD              2423 Bellaire                 4                           
+ProjectE              7745 Sugarland                5                           
+ProjectF              1566 Salt Lake City           3                           
+ProjectG              1234 New York                 2                           
+ProjectH              3467 Stafford                 4                           
+ProjectI              4345 Chicago                  1                           
+ProjectJ              2212 San Francisco            2                           
+
+10 rows selected.
+
+SQL> select dname from department where dno NOT in(select depno from project where plocation in ('houston','Houston'));
+
+DNAME                                                                           
+---------------                                                                 
+Administration                                                                  
+Headquater                                                                      
+Finance                                                                         
+
+SQL> desc deapartment;
+ERROR:
+ORA-04043: object deapartment does not exist 
+
+
+SQL> desc department;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DNAME                                     NOT NULL VARCHAR2(15)
+ DNO                                       NOT NULL NUMBER(5)
+ MGRSSN                                             CHAR(9)
+ MGRSTART_DATE                                      DATE
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ FNAME                                     NOT NULL VARCHAR2(15)
+ MINIT                                              CHAR(2)
+ LNAME                                     NOT NULL VARCHAR2(15)
+ SSN                                       NOT NULL CHAR(9)
+ BDATE                                              DATE
+ ADDRESS                                            VARCHAR2(50)
+ SEX                                       NOT NULL CHAR(1)
+ SALARY                                             NUMBER(7)
+ SUPERSSN                                           CHAR(9)
+ DEPNO                                              NUMBER(5)
+
+SQL> select fname,lname from employee,department where ssn in(select superssn from employee)and ssn=mgrssn;
+
+FNAME           LNAME                                                           
+--------------- ---------------                                                 
+James           Borg                                                            
+Doug            Gilbert                                                         
+Joyce           PAN                                                             
+Jennifer        Wallace                                                         
+
+SQL> select dname from department where dno not in(select depno from employee);
+
+DNAME                                                                           
+---------------                                                                 
+Administration                                                                  
+
+SQL> select fname,lname,depno from employee group by depno having min(salary);
+select fname,lname,depno from employee group by depno having min(salary)
+                                                                       *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> select fname,lname,depno from employee group by depno having salary in(select min(salary) from employee group by depno);
+select fname,lname,depno from employee group by depno having salary in(select min(salary) from employee group by depno)
+                                                             *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select fname,lname,depno from employee group by depno having salary in(select salary from employee group by depno);
+select fname,lname,depno from employee group by depno having salary in(select salary from employee group by depno)
+                                                                              *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select fname,lname,depno,min(salary) from employee group by depno;
+select fname,lname,depno,min(salary) from employee group by depno
+       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select depno,min(salary) from employee group by depno;
+
+     DEPNO MIN(SALARY)                                                          
+---------- -----------                                                          
+         1       55000                                                          
+         5       25000                                                          
+         4       25000                                                          
+         3       80000                                                          
+
+SQL> select depno,min(salary),fname from employee group by depno,fname;
+
+     DEPNO MIN(SALARY) FNAME                                                    
+---------- ----------- ---------------                                          
+         5       25000 Joyce                                                    
+         3       80000 Doug                                                     
+         5       30000 John                                                     
+         5       40000 Frankin                                                  
+         4       43000 Jennifer                                                 
+         1       58000 Robert                                                   
+         4       25000 Ahmad                                                    
+         1       55000 James                                                    
+         5       38000 Ramesh                                                   
+         4       25000 Alicia                                                   
+
+10 rows selected.
+
+SQL> ;
+  1* select depno,min(salary),fname from employee group by depno,fname
+SQL> ;
+  1* select depno,min(salary),fname from employee group by depno,fname
+SQL> ;
+  1* select depno,min(salary),fname from employee group by depno,fname
+SQL> ;
+  1* select depno,min(salary),fname from employee group by depno,fname
+SQL> ;
+  1* select depno,min(salary),fname from employee group by depno,fname
+SQL> select depno,min(salary),fname from employee group by depno,fname;
+
+     DEPNO MIN(SALARY) FNAME                                                    
+---------- ----------- ---------------                                          
+         5       25000 Joyce                                                    
+         3       80000 Doug                                                     
+         5       30000 John                                                     
+         5       40000 Frankin                                                  
+         4       43000 Jennifer                                                 
+         1       58000 Robert                                                   
+         4       25000 Ahmad                                                    
+         1       55000 James                                                    
+         5       38000 Ramesh                                                   
+         4       25000 Alicia                                                   
+
+10 rows selected.
+
+SQL> select depno,min(salary),fname from employee group by depno,fname;
+
+     DEPNO MIN(SALARY) FNAME                                                    
+---------- ----------- ---------------                                          
+         5       25000 Joyce                                                    
+         3       80000 Doug                                                     
+         5       30000 John                                                     
+         5       40000 Frankin                                                  
+         4       43000 Jennifer                                                 
+         1       58000 Robert                                                   
+         4       25000 Ahmad                                                    
+         1       55000 James                                                    
+         5       38000 Ramesh                                                   
+         4       25000 Alicia                                                   
+
+10 rows selected.
+
+SQL> spool off;
+SQL> select fname from employee where depno=5 and salary>(select max(salary) from employee where depno=4);
+
+FNAME                                                                           
+---------------                                                                 
+Joyce                                                                           
+
+SQL> create view emp3 as select * from employee where depno=3;
+View created.
+
+SQL> create view empproj as select fname,ssn,pnamefrom 
+SQL> spool off;

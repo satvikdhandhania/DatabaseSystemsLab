@@ -1,0 +1,303 @@
+SQL> select ssn,lname from employee where bdate like "%MAY%";
+select ssn,lname from employee where bdate like "%MAY%"
+                                                *
+ERROR at line 1:
+ORA-00904: "%MAY%": invalid identifier 
+
+
+SQL> select ssn,lname from employee where bdate like '%MAY%';
+
+no rows selected
+
+SQL> select * from employee where salary>10000 and salary <25000;
+
+no rows selected
+
+SQL> select fname,ssn from employee where SuperSSN Not NULL;
+select fname,ssn from employee where SuperSSN Not NULL
+                                                  *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> select fname,ssn from employee where SuperSSN Is Not NULL;
+
+FNAME           SSN                                                             
+--------------- ---------                                                       
+Robert          943775543                                                       
+Frankin         333445555                                                       
+Jennifer        987654321                                                       
+John            123456789                                                       
+Ramesh          666884444                                                       
+Joyce           453453453                                                       
+James           888665555                                                       
+Alicia          999887777                                                       
+Ahmad           987987987                                                       
+
+9 rows selected.
+
+SQL> select * from employee where dno is not null;
+select * from employee where dno is not null
+                             *
+ERROR at line 1:
+ORA-00904: "DNO": invalid identifier 
+
+
+SQL> select * from employee where depno is not null;
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+Robert          F  Scott           943775543 21-JUN-75                          
+2365 Newcastle rd ,Bellaire, TX                    M      58000 888665555       
+         1                                                                      
+                                                                                
+Joyce              PAN             543216789 07-FEB-80                          
+11 S59 E, Salt Lake City,UT                        F      70000                 
+         5                                                                      
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+                                                                                
+Doug            E  Gilbert         554433221 09-JUN-75                          
+11 S 59 E ,Salt Lake City,UT                       M      80000                 
+         3                                                                      
+                                                                                
+Frankin         T  Wong            333445555 08-DEC-85                          
+638 Voss Houston ,TX                               M      40000 554433221       
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+         5                                                                      
+                                                                                
+Jennifer        S  Wallace         987654321 20-JUN-77                          
+291 Berry Bellaire ,TX                             F      43000 554433221       
+         4                                                                      
+                                                                                
+John            B  Smith           123456789 09-JAN-67                          
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+731 Fondren Houston,TX                             M      30000 333445555       
+         5                                                                      
+                                                                                
+Ramesh          K  Narayan         666884444 15-SEP-76                          
+975 Fire Oak Humble,TX                             M      38000 333445555       
+         5                                                                      
+                                                                                
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+Joyce           A  English         453453453 31-JUL-73                          
+5631 Rice Houston, TX                              F      25000 333445555       
+         5                                                                      
+                                                                                
+James           E  Borg            888665555 10-NOV-81                          
+450 Stone Houston,TX                               M      55000 543216789       
+         1                                                                      
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+                                                                                
+Alicia          J  Zelaya          999887777 19-JUL-72                          
+3321 Castle Spring,TX                              F      25000 987654321       
+         4                                                                      
+                                                                                
+Ahmad           V  Jabbar          987987987 29-MAR-74                          
+980 Dallas Houston,TX                              M      25000 987654321       
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+         4                                                                      
+                                                                                
+
+11 rows selected.
+
+SQL> select * from employee where lname='Abraham' AND (fname='Joyce' OR fname='Paul');
+
+no rows selected
+
+SQL> select * from employee where lname IN('Smith','Narayan','Borg');
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+John            B  Smith           123456789 09-JAN-67                          
+731 Fondren Houston,TX                             M      30000 333445555       
+         5                                                                      
+                                                                                
+Ramesh          K  Narayan         666884444 15-SEP-76                          
+975 Fire Oak Humble,TX                             M      38000 333445555       
+         5                                                                      
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+                                                                                
+James           E  Borg            888665555 10-NOV-81                          
+450 Stone Houston,TX                               M      55000 543216789       
+         1                                                                      
+                                                                                
+
+SQL> select round(bdate,'DD-Month-YYYY') from employee;
+select round(bdate,'DD-Month-YYYY') from employee
+                   *
+ERROR at line 1:
+ORA-01898: too many precision specifiers 
+
+
+SQL> select round(bdate,'DD-Mon-YYYY') from employee;e;
+select round(bdate,'DD-Mon-YYYY') from employee;e
+                                               *
+ERROR at line 1:
+ORA-00911: invalid character 
+
+
+SQL> select round(bdate,'DD-Mon-YYYY') from employee;
+select round(bdate,'DD-Mon-YYYY') from employee
+                   *
+ERROR at line 1:
+ORA-01898: too many precision specifiers 
+
+
+SQL> select round(bdate,'DD-MMM-YYYY') from employee;
+select round(bdate,'DD-MMM-YYYY') from employee
+                   *
+ERROR at line 1:
+ORA-01898: too many precision specifiers 
+
+
+SQL> select bdate from employee;
+
+BDATE                                                                           
+---------                                                                       
+21-JUN-75                                                                       
+07-FEB-80                                                                       
+09-JUN-75                                                                       
+08-DEC-85                                                                       
+20-JUN-77                                                                       
+09-JAN-67                                                                       
+15-SEP-76                                                                       
+31-JUL-73                                                                       
+10-NOV-81                                                                       
+19-JUL-72                                                                       
+29-MAR-74                                                                       
+
+11 rows selected.
+
+SQL> select round(bdate,'year') from employee;
+
+ROUND(BDA                                                                       
+---------                                                                       
+01-JAN-75                                                                       
+01-JAN-80                                                                       
+01-JAN-75                                                                       
+01-JAN-86                                                                       
+01-JAN-77                                                                       
+01-JAN-67                                                                       
+01-JAN-77                                                                       
+01-JAN-74                                                                       
+01-JAN-82                                                                       
+01-JAN-73                                                                       
+01-JAN-74                                                                       
+
+11 rows selected.
+
+SQL> select round(bdate,'DD-MONTH-YYYY') from employee;
+select round(bdate,'DD-MONTH-YYYY') from employee
+                   *
+ERROR at line 1:
+ORA-01898: too many precision specifiers 
+
+
+SQL> select round(bdate,'DD-MON-YYYY') from employee;e;
+select round(bdate,'DD-MON-YYYY') from employee;e
+                                               *
+ERROR at line 1:
+ORA-00911: invalid character 
+
+
+SQL> select round(bdate,'DD-MON-YYYY') from employee;
+select round(bdate,'DD-MON-YYYY') from employee
+                   *
+ERROR at line 1:
+ORA-01898: too many precision specifiers 
+
+
+SQL> select to_date(bdate,'month-dd-yyyy') from employee;
+select to_date(bdate,'month-dd-yyyy') from employee
+               *
+ERROR at line 1:
+ORA-01843: not a valid month 
+
+
+SQL> select fname,bdate from employee where bdate<='31-dec-1980';
+
+FNAME           BDATE                                                           
+--------------- ---------                                                       
+Robert          21-JUN-75                                                       
+Joyce           07-FEB-80                                                       
+Doug            09-JUN-75                                                       
+Jennifer        20-JUN-77                                                       
+John            09-JAN-67                                                       
+Ramesh          15-SEP-76                                                       
+Joyce           31-JUL-73                                                       
+Alicia          19-JUL-72                                                       
+Ahmad           29-MAR-74                                                       
+
+9 rows selected.
+
+SQL> select mgrssn from department where dname LIKE '%facture%';
+
+MGRSSN                                                                          
+---------                                                                       
+888665555                                                                       
+
+SQL> select plocation from project where plocation LIKE 'H%';
+
+PLOCATION                                                                       
+---------------                                                                 
+Houston                                                                         
+Houston                                                                         
+
+SQL> select dname from department where dname LIKE '%e';
+
+DNAME                                                                           
+---------------                                                                 
+Manufacture                                                                     
+Finance                                                                         
+
+SQL> spool off;

@@ -1,0 +1,638 @@
+SQL> create table Project(pname varchar(15),pno number(5),plocation varchar(15),dno number(5));
+
+Table created.
+
+SQL> Insert into department values('&dname',&dno,'&mgrSSN','&mgrstart_date');
+Enter value for dname: Manufacture
+Enter value for dno: 1
+Enter value for mgrssn: 888665555
+Enter value for mgrstart_date: 19-jun-2006
+old   1: Insert into department values('&dname',&dno,'&mgrSSN','&mgrstart_date')
+new   1: Insert into department values('Manufacture',1,'888665555','19-jun-2006')
+
+1 row created.
+
+SQL> /
+Enter value for dname: Administration
+Enter value for dno: 2
+Enter value for mgrssn: 54321
+Enter value for mgrstart_date: 
+old   1: Insert into department values('&dname',&dno,'&mgrSSN','&mgrstart_date')
+new   1: Insert into department values('Administration',2,'54321','')
+
+1 row created.
+
+SQL> delete from department where dno=2;
+
+1 row deleted.
+
+SQL> select *from department;
+
+DNAME                  DNO MGRSSN    MGRSTART_                                  
+--------------- ---------- --------- ---------                                  
+Manufacture              1 888665555 19-JUN-06                                  
+
+SQL> Insert into department values('&dname',&dno,'&mgrSSN','&mgrstart_date');
+Enter value for dname: Administration
+Enter value for dno: 2
+Enter value for mgrssn: 543216789
+Enter value for mgrstart_date: 04-jan-2010
+old   1: Insert into department values('&dname',&dno,'&mgrSSN','&mgrstart_date')
+new   1: Insert into department values('Administration',2,'543216789','04-jan-2010')
+
+1 row created.
+
+SQL> /
+Enter value for dname: Headquater
+Enter value for dno: 3
+Enter value for mgrssn: 554433221
+Enter value for mgrstart_date: 22-sep-2011
+old   1: Insert into department values('&dname',&dno,'&mgrSSN','&mgrstart_date')
+new   1: Insert into department values('Headquater',3,'554433221','22-sep-2011')
+
+1 row created.
+
+SQL> /
+Enter value for dname: Finance
+Enter value for dno: 4
+Enter value for mgrssn: 987654321
+Enter value for mgrstart_date: 01-jan-2007
+old   1: Insert into department values('&dname',&dno,'&mgrSSN','&mgrstart_date')
+new   1: Insert into department values('Finance',4,'987654321','01-jan-2007')
+
+1 row created.
+
+SQL> /
+Enter value for dname: Research
+Enter value for dno: 5
+Enter value for mgrssn: 333445555
+Enter value for mgrstart_date: 22-may-2008
+old   1: Insert into department values('&dname',&dno,'&mgrSSN','&mgrstart_date')
+new   1: Insert into department values('Research',5,'333445555','22-may-2008')
+
+1 row created.
+
+SQL> Insert into Project values('&pname',&pno,'&plocation','&dno');
+Enter value for pname: ProjectA
+Enter value for pno: 3388
+Enter value for plocation: Houston
+Enter value for dno: 1
+old   1: Insert into Project values('&pname',&pno,'&plocation','&dno')
+new   1: Insert into Project values('ProjectA',3388,'Houston','1')
+
+1 row created.
+
+SQL> alter table Project rename column dno TO depno;
+
+Table altered.
+
+SQL> select * from Project;
+
+PNAME                  PNO PLOCATION            DEPNO                           
+--------------- ---------- --------------- ----------                           
+ProjectA              3388 Houston                  1                           
+
+SQL> Insert into Project values('&pname',&pno,'&plocation','&dno');
+Enter value for pname: 
+Enter value for pno: 
+Enter value for plocation: 
+Enter value for dno: 
+old   1: Insert into Project values('&pname',&pno,'&plocation','&dno')
+new   1: Insert into Project values('',,'','')
+Insert into Project values('',,'','')
+                              *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> Insert into Project values('&pname',&pno,'&plocation','&depno');
+Enter value for pname: ProjectB
+Enter value for pno: 1945
+Enter value for plocation: Salt Lake City
+Enter value for depno: 3
+old   1: Insert into Project values('&pname',&pno,'&plocation','&depno')
+new   1: Insert into Project values('ProjectB',1945,'Salt Lake City','3')
+
+1 row created.
+
+SQL> /
+Enter value for pname: ProjectC
+Enter value for pno: 6688
+Enter value for plocation: Houston
+Enter value for depno: 5
+old   1: Insert into Project values('&pname',&pno,'&plocation','&depno')
+new   1: Insert into Project values('ProjectC',6688,'Houston','5')
+
+1 row created.
+
+SQL> /
+Enter value for pname: ProjectD
+Enter value for pno: 2423
+Enter value for plocation: Bellaire
+Enter value for depno: 4
+old   1: Insert into Project values('&pname',&pno,'&plocation','&depno')
+new   1: Insert into Project values('ProjectD',2423,'Bellaire','4')
+
+1 row created.
+
+SQL> /
+Enter value for pname: ProjectE
+Enter value for pno: 7745
+Enter value for plocation: Sugarland
+Enter value for depno: 5
+old   1: Insert into Project values('&pname',&pno,'&plocation','&depno')
+new   1: Insert into Project values('ProjectE',7745,'Sugarland','5')
+
+1 row created.
+
+SQL> /
+Enter value for pname: ProjectF
+Enter value for pno: 1566
+Enter value for plocation: Salt Lake City
+Enter value for depno: 3
+old   1: Insert into Project values('&pname',&pno,'&plocation','&depno')
+new   1: Insert into Project values('ProjectF',1566,'Salt Lake City','3')
+
+1 row created.
+
+SQL> /
+Enter value for pname: ProjectG
+Enter value for pno: 1234
+Enter value for plocation: New York
+Enter value for depno: 2
+old   1: Insert into Project values('&pname',&pno,'&plocation','&depno')
+new   1: Insert into Project values('ProjectG',1234,'New York','2')
+
+1 row created.
+
+SQL> /
+Enter value for pname: ProjectH
+Enter value for pno: 3467
+Enter value for plocation: Stafford
+Enter value for depno: 4
+old   1: Insert into Project values('&pname',&pno,'&plocation','&depno')
+new   1: Insert into Project values('ProjectH',3467,'Stafford','4')
+
+1 row created.
+
+SQL> ProjectI
+SP2-0042: unknown command "ProjectI" - rest of line ignored.
+SQL> /
+Enter value for pname: ProjectI
+Enter value for pno: 4345
+Enter value for plocation: Chicago
+Enter value for depno: 1
+old   1: Insert into Project values('&pname',&pno,'&plocation','&depno')
+new   1: Insert into Project values('ProjectI',4345,'Chicago','1')
+
+1 row created.
+
+SQL> /
+Enter value for pname: ProjectJ
+Enter value for pno: 2212
+Enter value for plocation: San Francisco
+Enter value for depno: 2
+old   1: Insert into Project values('&pname',&pno,'&plocation','&depno')
+new   1: Insert into Project values('ProjectJ',2212,'San Francisco','2')
+
+1 row created.
+
+SQL> select * from Project;
+
+PNAME                  PNO PLOCATION            DEPNO                           
+--------------- ---------- --------------- ----------                           
+ProjectA              3388 Houston                  1                           
+ProjectB              1945 Salt Lake City           3                           
+ProjectC              6688 Houston                  5                           
+ProjectD              2423 Bellaire                 4                           
+ProjectE              7745 Sugarland                5                           
+ProjectF              1566 Salt Lake City           3                           
+ProjectG              1234 New York                 2                           
+ProjectH              3467 Stafford                 4                           
+ProjectI              4345 Chicago                  1                           
+ProjectJ              2212 San Francisco            2                           
+
+10 rows selected.
+
+SQL> select * from department;
+
+DNAME                  DNO MGRSSN    MGRSTART_                                  
+--------------- ---------- --------- ---------                                  
+Manufacture              1 888665555 19-JUN-06                                  
+Administration           2 543216789 04-JAN-10                                  
+Headquater               3 554433221 22-SEP-11                                  
+Finance                  4 987654321 01-JAN-07                                  
+Research                 5 333445555 22-MAY-08                                  
+
+SQL> select ssn,superSSn from employee;
+
+SSN       SUPERSSN                                                              
+--------- ---------                                                             
+543216789                                                                       
+554433221                                                                       
+333445555 554433221                                                             
+987654321 554433221                                                             
+123456789 333445555                                                             
+666884444 333445555                                                             
+453453453 333445555                                                             
+888665555 543216789                                                             
+999887777 987654321                                                             
+987987987 987654321                                                             
+
+10 rows selected.
+
+SQL> select * from employee;
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+Joyce              PAN             543216789 07-FEB-80                          
+11 S59 E, Salt Lake City,UT                        F      70000                 
+         2                                                                      
+                                                                                
+Doug            E  Gilbert         554433221 09-JUN-75                          
+11 S 59 E ,Salt Lake City,UT                       M      80000                 
+         3                                                                      
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+                                                                                
+Frankin         T  Wong            333445555 08-DEC-85                          
+638 Voss Houston ,TX                               M      40000 554433221       
+         5                                                                      
+                                                                                
+Jennifer        S  Wallace         987654321 20-JUN-77                          
+291 Berry Bellaire ,TX                             F      43000 554433221       
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+         4                                                                      
+                                                                                
+John            B  Smith           123456789 09-JAN-67                          
+731 Fondren Houston,TX                             M      30000 333445555       
+         5                                                                      
+                                                                                
+Ramesh          K  Narayan         666884444 15-SEP-76                          
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+975 Fire Oak Humble,TX                             M      38000 333445555       
+         5                                                                      
+                                                                                
+Joyce           A  English         453453453 31-JUL-73                          
+5631 Rice Houston, TX                              F      25000 333445555       
+         5                                                                      
+                                                                                
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+James           E  Borg            888665555 10-NOV-81                          
+450 Stone Houston,TX                               M      55000 543216789       
+         1                                                                      
+                                                                                
+Alicia          J  Zelaya          999887777 19-JUL-72                          
+3321 Castle Spring,TX                              F      25000 987654321       
+         4                                                                      
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+                                                                                
+Ahmad           V  Jabbar          987987987 29-MAR-74                          
+980 Dallas Houston,TX                              M      25000 987654321       
+         4                                                                      
+                                                                                
+
+10 rows selected.
+
+SQL> select fname from employee where bdate='29-mar-1959';
+
+no rows selected
+
+SQL> select distinct salary from employee;
+
+    SALARY                                                                      
+----------                                                                      
+     38000                                                                      
+     43000                                                                      
+     55000                                                                      
+     30000                                                                      
+     40000                                                                      
+     80000                                                                      
+     25000                                                                      
+     70000                                                                      
+
+8 rows selected.
+
+SQL> select mngr_SSN,start_date from department where dept_name='Finance';
+select mngr_SSN,start_date from department where dept_name='Finance'
+                                                 *
+ERROR at line 1:
+ORA-00904: "DEPT_NAME": invalid identifier 
+
+
+SQL> select mgr_SSN,start_date from department where dname='Finance';
+select mgr_SSN,start_date from department where dname='Finance'
+               *
+ERROR at line 1:
+ORA-00904: "START_DATE": invalid identifier 
+
+
+SQL> select mgr_SSN,mgrstart_date from department where dname='Finance';
+select mgr_SSN,mgrstart_date from department where dname='Finance'
+       *
+ERROR at line 1:
+ORA-00904: "MGR_SSN": invalid identifier 
+
+
+SQL> select mgrSSN,mgrstart_date from department where dname='Finance';
+
+MGRSSN    MGRSTART_                                                             
+--------- ---------                                                             
+987654321 01-JAN-07                                                             
+
+SQL> update employee set dno=5 where fname'Joyce';
+update employee set dno=5 where fname'Joyce'
+                                     *
+ERROR at line 1:
+ORA-00920: invalid relational operator 
+
+
+SQL> update employee set dno=5 where fname='Joyce';
+update employee set dno=5 where fname='Joyce'
+                    *
+ERROR at line 1:
+ORA-00904: "DNO": invalid identifier 
+
+
+SQL> select *  from employee;
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+Joyce              PAN             543216789 07-FEB-80                          
+11 S59 E, Salt Lake City,UT                        F      70000                 
+         2                                                                      
+                                                                                
+Doug            E  Gilbert         554433221 09-JUN-75                          
+11 S 59 E ,Salt Lake City,UT                       M      80000                 
+         3                                                                      
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+                                                                                
+Frankin         T  Wong            333445555 08-DEC-85                          
+638 Voss Houston ,TX                               M      40000 554433221       
+         5                                                                      
+                                                                                
+Jennifer        S  Wallace         987654321 20-JUN-77                          
+291 Berry Bellaire ,TX                             F      43000 554433221       
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+         4                                                                      
+                                                                                
+John            B  Smith           123456789 09-JAN-67                          
+731 Fondren Houston,TX                             M      30000 333445555       
+         5                                                                      
+                                                                                
+Ramesh          K  Narayan         666884444 15-SEP-76                          
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+975 Fire Oak Humble,TX                             M      38000 333445555       
+         5                                                                      
+                                                                                
+Joyce           A  English         453453453 31-JUL-73                          
+5631 Rice Houston, TX                              F      25000 333445555       
+         5                                                                      
+                                                                                
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+James           E  Borg            888665555 10-NOV-81                          
+450 Stone Houston,TX                               M      55000 543216789       
+         1                                                                      
+                                                                                
+Alicia          J  Zelaya          999887777 19-JUL-72                          
+3321 Castle Spring,TX                              F      25000 987654321       
+         4                                                                      
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+                                                                                
+Ahmad           V  Jabbar          987987987 29-MAR-74                          
+980 Dallas Houston,TX                              M      25000 987654321       
+         4                                                                      
+                                                                                
+
+10 rows selected.
+
+SQL> update employee set depn0=5 where='Joyce';
+update employee set depn0=5 where='Joyce'
+                                 *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> update employee set depno=5 where='Joyce';
+update employee set depno=5 where='Joyce'
+                                 *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> update employee set depno=5 where fname='Joyce';
+
+2 rows updated.
+
+SQL> select * from employee where fname='Joyce';
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+Joyce              PAN             543216789 07-FEB-80                          
+11 S59 E, Salt Lake City,UT                        F      70000                 
+         5                                                                      
+                                                                                
+Joyce           A  English         453453453 31-JUL-73                          
+5631 Rice Houston, TX                              F      25000 333445555       
+         5                                                                      
+
+FNAME           MI LNAME           SSN       BDATE                              
+--------------- -- --------------- --------- ---------                          
+ADDRESS                                            S     SALARY SUPERSSN        
+-------------------------------------------------- - ---------- ---------       
+     DEPNO                                                                      
+----------                                                                      
+                                                                                
+
+SQL> alter table department add phn_no number(10);
+
+Table altered.
+
+SQL> update department set phn_no=8844466666 where depno=1;
+update department set phn_no=8844466666 where depno=1
+                                              *
+ERROR at line 1:
+ORA-00904: "DEPNO": invalid identifier 
+
+
+SQL> select * from department;
+
+DNAME                  DNO MGRSSN    MGRSTART_     PHN_NO                       
+--------------- ---------- --------- --------- ----------                       
+Manufacture              1 888665555 19-JUN-06                                  
+Administration           2 543216789 04-JAN-10                                  
+Headquater               3 554433221 22-SEP-11                                  
+Finance                  4 987654321 01-JAN-07                                  
+Research                 5 333445555 22-MAY-08                                  
+
+SQL> update department set phn_no=8844466666 where dno=1;
+
+1 row updated.
+
+SQL> update department set phn_no=6644448833 where dno=2;
+
+1 row updated.
+
+SQL> alter table department modify phn_no number(12);
+
+Table altered.
+
+SQL> alter table department rename column phn_no to phno;
+
+Table altered.
+
+SQL> rename table department to dept;
+rename table department to dept
+       *
+ERROR at line 1:
+ORA-00903: invalid table name 
+
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+PROJECT                        TABLE                                            
+EMPLOYEE                       TABLE                                            
+DEPARTMENT                     TABLE                                            
+BIN$x4K3DdR5QO+Pv/ZiT1qZNg==$0 TABLE                                            
+BIN$h93CdPfMQMqWLc64ZxVhag==$0 TABLE                                            
+
+SQL> rename table department to dept
+  2  ;
+rename table department to dept
+       *
+ERROR at line 1:
+ORA-00903: invalid table name 
+
+
+SQL> rename table department to dept;
+rename table department to dept
+       *
+ERROR at line 1:
+ORA-00903: invalid table name 
+
+
+SQL> rename table DEPARTMENT to dept;
+rename table DEPARTMENT to dept
+       *
+ERROR at line 1:
+ORA-00903: invalid table name 
+
+
+SQL> rename DEPARTMENT to dept;
+
+Table renamed.
+
+SQL> alter table dept drop column phno;
+
+Table altered.
+
+SQL> create table copyofdept as select * from dept;
+
+Table created.
+
+SQL> truncate table copyofdept;
+
+Table truncated.
+
+SQL> select * from copyofdept;
+
+no rows selected
+
+SQL> drop table copyof dept;
+drop table copyof dept
+                  *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> drop table copyofdept;
+
+Table dropped.
+
+SQL> select* from tab;
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+PROJECT                        TABLE                                            
+EMPLOYEE                       TABLE                                            
+DEPT                           TABLE                                            
+BIN$x4K3DdR5QO+Pv/ZiT1qZNg==$0 TABLE                                            
+BIN$h93CdPfMQMqWLc64ZxVhag==$0 TABLE                                            
+BIN$29zE/PxvSRaIrVAibS6djA==$0 TABLE                                            
+
+6 rows selected.
+
+SQL> spool off;
